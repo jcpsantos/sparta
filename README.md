@@ -1,2 +1,2 @@
-# sparta
+# Sparta
 Library to help ETL using pyspark
