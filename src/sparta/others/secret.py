@@ -2,17 +2,18 @@ import boto3
 import json
 
 def get_secret_aws(name:str, region: str="sa-east-1") -> dict:
-    """
-    Função para capturar os dados registrados no Secret Manager.
-    Parameter:
-    name = Nome do Secret Manager.
-    region = Código da região onde se encontra o Secret Manager (Default: sa-east-1)
-    Return:
-        Dicinonário com os dados capturados
+    """Function to capture the data registered in Secret Manager.
+
+    Args:
+        name (str): Secret Manager name.
+        region (str, optional): Region code where Secret Manager is located. Defaults to "sa-east-1".
+
+    Returns:
+        dict: Dictionary with the captured data
+    
     Example:
-        get_secret('Nome_Secret', 'sa-east-1')
+        >>> get_secret_aws('Nome_Secret', 'sa-east-1')
     """
-        
     secret_name = name
     region_name = region
     
