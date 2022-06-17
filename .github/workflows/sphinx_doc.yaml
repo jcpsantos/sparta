@@ -1,0 +1,59 @@
+name: build and publish docs
+on:
+  release:
+    types: [published]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: main
+      - name: Clone doc branch
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: doc
+          path: doc
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx-autoapi==1.8.1
+          pip install sphinx-rtd-theme==0.5.2
+          pip install astroid==2.6.6
+      - name: Build docs
+        working-directory: ./main
+        run: |
+          cd docs
+          make html
+      # Publish built docs to gh-pages branch.
+      # ===============================
+
+      - name: Commit documentation changes
+        working-directory: .
+        run: |
+          cp -r main/docs/_build/html/* doc/
+          cd doc
+          touch .nojekyll
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update documentation" -a || true
+          # The above command will fail if no changes were present, so we ignore
+          # that.
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: doc
+          directory: doc
+          github_token: ${{ secrets.GITHUB_TOKEN }}
