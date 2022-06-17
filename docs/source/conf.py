@@ -40,7 +40,7 @@ extensions = [
 
 #extensions.append('autoapi.extension')
 autoapi_type = 'python'
-autoapi_dirs = ['../../src/sparta']
+autoapi_dirs = ['../../sparta']
 
 autoapi_ignore = [
     "*/tests/*",

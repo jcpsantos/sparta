@@ -1,0 +1,31 @@
+:py:mod:`others.delete`
+=======================
+
+.. py:module:: others.delete
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   others.delete.delete_blob
+
+
+
+.. py:function:: delete_blob(dir_name: str, container_name: str, connect: str)
+
+   Function to delete files in a blob.
+
+   :param dir_name: Directory name.
+   :type dir_name: str
+   :param container_name: Container name.
+   :type container_name: str
+   :param connect: Blob connection string.
+   :type connect: str
+
+
