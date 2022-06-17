@@ -7,6 +7,16 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 required = ['azure-core==1.24.1', 'azure-storage-blob==12.12.0', 'boto3==1.24.7', 'botocore==1.27.7', 'chispa==0.9.2', 
             'pyspark==3.2.1', 'pytest==7.1.2', 'PyYAML==6.0','s3transfer==0.6.0', 'six==1.16.0', 'smart-open==6.0.0']
+
+dev_packages = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "mypy>=0.942",
+    "types-pyyaml>=6.0.7",
+    "black>=22.3.0",
+    "flake8>=4.0.1",
+    "docstr-coverage>=2.2.0",
+]
     
 setup(
     name = 'sparta',
@@ -19,6 +29,7 @@ setup(
     long_description_content_type="text/markdown",
     url = 'https://github.com/jcpsantos/sparta',
     install_requires = required,
+    extras_require={"dev": dev_packages},
     project_urls = {
         'Source code': 'https://github.com/jcpsantos/sparta'
     },
