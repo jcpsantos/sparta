@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>transformation &mdash; Sparta 0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Sparta
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sparta</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformation</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/autoapi/transformation/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-transformation">
+<span id="transformation"></span><h1><a class="reference internal" href="#module-transformation" title="transformation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformation</span></code></a><a class="headerlink" href="#module-transformation" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="transformation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformation.transformation</span></code></a></li>
+</ul>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#transformation.drop_duplicates" title="transformation.drop_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicates</span></code></a>(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: list) → pyspark.sql.functions.DataFrame</p></td>
+<td><p>Function that performs the deletion of duplicate data according to key columns.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#transformation.aggregation" title="transformation.aggregation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aggregation</span></code></a>(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: list, aggregations: dict) → pyspark.sql.functions.DataFrame</p></td>
+<td><p>This function performs aggregations on columns.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#transformation.format_timestamp" title="transformation.format_timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_timestamp</span></code></a>(df: pyspark.sql.functions.DataFrame, cols: list, timestamp: str = '&quot;yyyy-MM-dd HH:mm:ss&quot;') → pyspark.sql.functions.DataFrame</p></td>
+<td><p>Function that performs a conversion from the date format to a pre-defined timestamp format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#transformation.create_col_list" title="transformation.create_col_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_col_list</span></code></a>(df: pyspark.sql.functions.DataFrame, col: str) → list</p></td>
+<td><p>Function that creates a list with unique values from a column.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="transformation.drop_duplicates">
+<span class="sig-prename descclassname"><span class="pre">transformation.</span></span><span class="sig-name descname"><span class="pre">drop_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#transformation.drop_duplicates" title="Permalink to this definition"></a></dt>
+<dd><p>Function that performs the deletion of duplicate data according to key columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame.</p></li>
+<li><p><strong>col_order</strong> (<em>str</em>) – Column to be used in sorting.</p></li>
+<li><p><strong>cols_partition</strong> (<em>list</em>) – List of key columns, for partitioning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame without the duplicate data, according to the key columns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
+<span class="go">    df = drop_duplicates(df, &#39;population&#39;, cols)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transformation.aggregation">
+<span class="sig-prename descclassname"><span class="pre">transformation.</span></span><span class="sig-name descname"><span class="pre">aggregation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#transformation.aggregation" title="Permalink to this definition"></a></dt>
+<dd><p>This function performs aggregations on columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame.</p></li>
+<li><p><strong>col_order</strong> (<em>str</em>) – Column to be used in sorting.</p></li>
+<li><p><strong>cols_partition</strong> (<em>list</em>) – List of key columns, for partitioning.</p></li>
+<li><p><strong>aggregations</strong> (<em>dict</em>) – A dictionary with the columns and the type of aggregation that will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame with aggregated columns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agg</span> <span class="o">=</span> <span class="p">{</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">:</span><span class="s1">&#39;new_confirmed&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">first</span><span class="p">:</span><span class="s1">&#39;order_for_place&#39;</span><span class="p">}</span>
+<span class="go">    cols = [&#39;state&#39;, &#39;city&#39;]</span>
+<span class="go">    df = aggregation(df, &#39;date&#39;, cols, agg)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transformation.format_timestamp">
+<span class="sig-prename descclassname"><span class="pre">transformation.</span></span><span class="sig-name descname"><span class="pre">format_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&quot;yyyy-MM-dd</span> <span class="pre">HH:mm:ss&quot;'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#transformation.format_timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Function that performs a conversion from the date format to a pre-defined timestamp format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame.</p></li>
+<li><p><strong>cols</strong> (<em>list</em>) – List of columns that will be converted.</p></li>
+<li><p><strong>timestamp</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Timestamp format.. Defaults to ‘“yyyy-MM-dd HH:mm:ss”’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame with the columns converted to a predefined timestamp format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">format_timestamp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transformation.create_col_list">
+<span class="sig-prename descclassname"><span class="pre">transformation.</span></span><span class="sig-name descname"><span class="pre">create_col_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#transformation.create_col_list" title="Permalink to this definition"></a></dt>
+<dd><p>Function that creates a list with unique values from a column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame.</p></li>
+<li><p><strong>col</strong> (<em>str</em>) – Column that will become a list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of unique values for a given DataFrame column.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create_col_list</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Juan Caio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
