@@ -19,7 +19,7 @@ dev_packages = [
     
 setup(
     name = 'sparta',
-    version = '0.2.6',
+    version = '0.1.0',
     author = 'Juan Caio',
     author_email = 'juancaiops@gmail.com',
     packages = ['sparta'],
@@ -31,7 +31,8 @@ setup(
     extras_require={"dev": dev_packages},
     python_requires=">= 3.7",
     project_urls = {
-        'Source code': 'https://github.com/jcpsantos/sparta'
+        'Source code': 'https://github.com/jcpsantos/sparta',
+        'Documentation': 'https://jcpsantos.github.io/sparta/'
     },
     license = 'GNU General Public License v2.0',
     keywords = 'spark etl data sparta',
