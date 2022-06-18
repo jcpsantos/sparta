@@ -1,6 +1,6 @@
 from azure.storage.blob import ContainerClient
 
-def delete_blob(dir_name:str, container_name:str, connect:str):
+def delete_blob(dir_name:str, container_name:str, connect:str) -> None:
     """Function to delete files in a blob.
 
     Args:

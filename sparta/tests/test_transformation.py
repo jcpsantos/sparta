@@ -1,5 +1,5 @@
 import pytest
-from chispa.dataframe_comparer import *
+from chispa.dataframe_comparer import assert_df_equality
 from sparta.transformation import drop_duplicates, aggregation, format_timestamp, create_col_list
 from pyspark.sql import SparkSession, functions as F
 from datetime import datetime

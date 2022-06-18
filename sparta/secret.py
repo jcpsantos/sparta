@@ -1,8 +1,8 @@
-from typing import Any
+from typing import Any, Dict
 import boto3
 import json
 
-def get_secret_aws(name:str, region: str="sa-east-1") -> dict[Any, Any]:
+def get_secret_aws(name:str, region: str="sa-east-1") -> Dict[Any, Any]:
     """Function to capture the data registered in Secret Manager.
 
     Args:
