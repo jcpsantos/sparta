@@ -1,0 +1,58 @@
+:py:mod:`sparta.load`
+=====================
+
+.. py:module:: sparta.load
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   sparta.load.save_df_azure_dw
+   sparta.load.create_hive_table
+
+
+
+.. py:function:: save_df_azure_dw(df: pyspark.sql.DataFrame, url_jdbc: str, tempdir: str, table: str, mode: str = 'overwrite', max_str_length: int = 4000) -> None
+
+   Function to write to an Azure SQL DW.
+
+   :param df: DataFrame that will be written.
+   :type df: DataFrame
+   :param url_jdbc: JDBC connection URL.
+   :type url_jdbc: str
+   :param tempdir: Path for writing temporary file.
+   :type tempdir: str
+   :param table: Name of the table where the DataFrame will be written in the Database.
+   :type table: str
+   :param mode: Write mode, can be append or overwrite.. Defaults to 'overwrite'.
+   :type mode: str, optional
+   :param max_str_length: Set string length for all NVARCHAR. Defaults to 4000.
+   :type max_str_length: int, optional
+
+   :raises ValueError: In case the mode values are not -> append or overwrite.
+
+
+.. py:function:: create_hive_table(df: pyspark.sql.DataFrame, table: str, value: int, *keys: str) -> None
+
+   Function to transform DataFrame into tables in Spark Warehouse.
+
+   :param df: DataFrame that will be transformed
+   :type df: DataFrame
+   :param table: The name of the table to be created.
+   :type table: str
+   :param value: The number of buckets to save table.
+   :type value: int
+   :param \*keys: Names of the columns to be grouped.
+   :type \*keys: str
+
+   .. rubric:: Example
+
+   >>> create_hive_table(df, "table_name", 5, "col1", "col2", "col3")
+
+

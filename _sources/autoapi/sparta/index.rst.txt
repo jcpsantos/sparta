@@ -1,0 +1,19 @@
+:py:mod:`sparta`
+================
+
+.. py:module:: sparta
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   delete/index.rst
+   extract/index.rst
+   load/index.rst
+   secret/index.rst
+   transformation/index.rst
+
+
