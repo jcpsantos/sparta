@@ -1,6 +1,6 @@
 from pyspark.sql import DataFrame
 
-def save_df_azure_dw(df: DataFrame, url_jdbc: str, tempdir: str, table: str, mode:str ='overwrite', max_str_length:int =4000):
+def save_df_azure_dw(df: DataFrame, url_jdbc: str, tempdir: str, table: str, mode:str ='overwrite', max_str_length:int =4000) -> None:
     """Function to write to an Azure SQL DW.
 
     Args:
@@ -31,7 +31,7 @@ def save_df_azure_dw(df: DataFrame, url_jdbc: str, tempdir: str, table: str, mod
         raise ValueError(f"mode {mode} doesn't exist. Use overwrite or append.")
 
 
-def create_hive_table(df: DataFrame, table: str, value: int,*keys:str):
+def create_hive_table(df: DataFrame, table: str, value: int,*keys:str) -> None:
     """Function to transform DataFrame into tables in Spark Warehouse.
 
     Args:

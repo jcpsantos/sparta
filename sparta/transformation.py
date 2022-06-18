@@ -1,8 +1,9 @@
+from typing import Any
 from pyspark.sql.window import Window
 from pyspark.sql import DataFrame, functions as F
 from pyspark.sql.functions import *
 
-def drop_duplicates(df:DataFrame, col_order: str, cols_partition:list) -> DataFrame:
+def drop_duplicates(df:DataFrame, col_order: str, cols_partition:list[Any]) -> DataFrame:
     """Function that performs the deletion of duplicate data according to key columns.
 
     Args:
@@ -20,7 +21,7 @@ def drop_duplicates(df:DataFrame, col_order: str, cols_partition:list) -> DataFr
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
 
-def aggregation(df:DataFrame, col_order: str, cols_partition: list, aggregations:dict) -> DataFrame:
+def aggregation(df:DataFrame, col_order: str, cols_partition: list, aggregations:dict[Any, str]) -> DataFrame:
     """This function performs aggregations on columns.
 
     Args:
@@ -42,7 +43,7 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: list, aggregations
         df = df.withColumn(aggregations.get(k), k(F.col(aggregations.get(k))).over(win))
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
 
-def format_timestamp(df: DataFrame, cols: list, timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> DataFrame:
+def format_timestamp(df: DataFrame, cols: list[str], timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> DataFrame:
     """Function that performs a conversion from the date format to a pre-defined timestamp format.
 
     Args:
@@ -60,7 +61,7 @@ def format_timestamp(df: DataFrame, cols: list, timestamp: str = '"yyyy-MM-dd HH
         df = df.withColumn(c, F.to_timestamp(F.date_format(F.col(c), timestamp), timestamp))
     return df
 
-def create_col_list (df: DataFrame, col: str) -> list:
+def create_col_list (df: DataFrame, col: str) -> list[str]:
     """Function that creates a list with unique values from a column.
 
     Args:

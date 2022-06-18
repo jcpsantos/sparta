@@ -6,7 +6,7 @@ from datetime import datetime
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 
-def test_drop_duplicates():
+def test_drop_duplicates() -> None:
     source_data = [
             ('jose', '1', 'BA'),
             ('jose', '2', 'BA'),
@@ -28,7 +28,7 @@ def test_drop_duplicates():
 
     assert_df_equality(actual_df, expected_df)
     
-def test_aggregation():
+def test_aggregation() -> None:
     source_data = [
             ('jose', 21, 'BA'),
             ('enzo', 11, 'BA'),
@@ -50,7 +50,7 @@ def test_aggregation():
 
     assert_df_equality(actual_df, expected_df, ignore_row_order=True)
     
-def test_format_timestamp():
+def test_format_timestamp() -> None:
     source_data = [
             ('1', '2022-06-16', 2022),
             ('2', '2022-07-16', 2022),
@@ -73,7 +73,7 @@ def test_format_timestamp():
 
     assert_df_equality(actual_df, expected_df, ignore_row_order=True)
     
-def test_create_col_list():
+def test_create_col_list() -> None:
     source_data = [
             ('jose', 21, 'BA'),
             ('jose', 11, 'BA'),
