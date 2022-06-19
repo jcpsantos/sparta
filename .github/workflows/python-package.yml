@@ -23,6 +23,7 @@ jobs:
         pip install --upgrade pip
         python -m pip install -e ".[dev]"
         mypy --strict sparta
+      continue-on-error: true
     - name: Run black
       uses: psf/black@stable
       with:
