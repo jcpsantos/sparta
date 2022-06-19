@@ -21,7 +21,7 @@ def drop_duplicates(df:DataFrame, col_order: str, cols_partition:List[Any]) -> D
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
 
-def aggregation(df:DataFrame, col_order: str, cols_partition: List, aggregations:Dict[Any, str]) -> DataFrame:
+def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggregations:Dict[Any, str]) -> DataFrame:
     """This function performs aggregations on columns.
 
     Args:

@@ -5,7 +5,7 @@ from smart_open import open
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 
-def read_with_schema(path: str, schema: str, options:Dict[str, str], format: str = 'parquet', spark: SparkSession = spark) -> DataFrame:
+def read_with_schema(path: str, schema: str, options:Dict[str, str] = None, format: str = 'csv', spark: SparkSession = spark) -> DataFrame:
     """Function to read DataFrames with predefined schema.
 
     Args:
