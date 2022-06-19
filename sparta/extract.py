@@ -1,11 +1,11 @@
-from typing import Dict
+from typing import Any, Dict
 from pyspark.sql import SparkSession, DataFrame
 import yaml
 from smart_open import open
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 
-def read_with_schema(path: str, schema: str, options:Dict[str, str] = None, format: str = 'csv', spark: SparkSession = spark) -> DataFrame:
+def read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: SparkSession = spark) -> DataFrame:
     """Function to read DataFrames with predefined schema.
 
     Args:
@@ -23,6 +23,8 @@ def read_with_schema(path: str, schema: str, options:Dict[str, str] = None, form
             path = '/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv'
             df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
     """
+    if options is None:
+        options = {}
     return spark.read.format(format).schema(schema).options(**options).load(path)
 
 
