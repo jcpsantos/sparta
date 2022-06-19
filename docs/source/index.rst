@@ -22,7 +22,7 @@ Important Sources
 Installation
 ==============
 
-Install the latest version with ``pip install sparta``
+Install the latest version with ``pip install pysparta``
 
 Supported PySpark / Python versions
 ====================================
