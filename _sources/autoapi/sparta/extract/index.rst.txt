@@ -31,7 +31,7 @@ Attributes
 
    
 
-.. py:function:: read_with_schema(path: str, schema: str, options: dict[str, str], format: str = 'parquet', spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
+.. py:function:: read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
 
    Function to read DataFrames with predefined schema.
 

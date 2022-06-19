@@ -20,7 +20,7 @@ Functions
 
 
 
-.. py:function:: drop_duplicates(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: list[Any]) -> pyspark.sql.functions.DataFrame
+.. py:function:: drop_duplicates(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[Any]) -> pyspark.sql.functions.DataFrame
 
    Function that performs the deletion of duplicate data according to key columns.
 
@@ -40,7 +40,7 @@ Functions
        df = drop_duplicates(df, 'population', cols)
 
 
-.. py:function:: aggregation(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: list, aggregations: dict[Any, str]) -> pyspark.sql.functions.DataFrame
+.. py:function:: aggregation(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[str], aggregations: Dict[Any, str]) -> pyspark.sql.functions.DataFrame
 
    This function performs aggregations on columns.
 
@@ -63,7 +63,7 @@ Functions
        df = aggregation(df, 'date', cols, agg)
 
 
-.. py:function:: format_timestamp(df: pyspark.sql.functions.DataFrame, cols: list[str], timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> pyspark.sql.functions.DataFrame
+.. py:function:: format_timestamp(df: pyspark.sql.functions.DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> pyspark.sql.functions.DataFrame
 
    Function that performs a conversion from the date format to a pre-defined timestamp format.
 
@@ -82,7 +82,7 @@ Functions
    >>> df = format_timestamp(df, ['date'])
 
 
-.. py:function:: create_col_list(df: pyspark.sql.functions.DataFrame, col: str) -> list[str]
+.. py:function:: create_col_list(df: pyspark.sql.functions.DataFrame, col: str) -> List[str]
 
    Function that creates a list with unique values from a column.
 

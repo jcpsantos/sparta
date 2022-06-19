@@ -17,7 +17,7 @@ Functions
 
 
 
-.. py:function:: delete_blob(dir_name: str, container_name: str, connect: str)
+.. py:function:: delete_blob(dir_name: str, container_name: str, connect: str) -> None
 
    Function to delete files in a blob.
 
