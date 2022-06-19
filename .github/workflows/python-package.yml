@@ -28,6 +28,7 @@ jobs:
       uses: psf/black@stable
       with:
         options: "--check --verbose"
+      continue-on-error: true
     - name: Run flake8
       run: |
         pip install --upgrade pip
