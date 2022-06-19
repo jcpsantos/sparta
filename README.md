@@ -12,7 +12,7 @@ Sparta is a simple library to help you work on ETL builds using PySpark.
 
 ## Installation
 
-Install the latest version with ```pip install sparta```
+Install the latest version with ```pip install pysparta```
 
 ## Documentation
 
