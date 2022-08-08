@@ -2,6 +2,7 @@ from typing import Any, Dict
 from pyspark.sql import SparkSession, DataFrame
 import yaml
 from smart_open import open
+from sparta.log import getlogger
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 
@@ -48,5 +49,7 @@ def read_yaml_df(path:str, spark: SparkSession = spark) -> DataFrame:
       except AttributeError:  
           Loader = yaml.SafeLoader
       yaml_dict = list(yaml.load_all(f, Loader=Loader))
+      logger = getlogger('read_yaml_df')
+      logger.info('Yaml converted to a list.')
 
     return spark.createDataFrame(yaml_dict)
