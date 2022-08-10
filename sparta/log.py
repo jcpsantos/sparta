@@ -10,6 +10,10 @@ def getlogger(name:str, level:logging=logging.INFO):
 
     Returns:
         logging: Custom log.
+        
+    Example:
+        >>> logger = getlogger('test')
+        >>> logger.info('test logs')
     """
     logger = logging.getLogger(name)
     logger.setLevel(level)

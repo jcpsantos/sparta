@@ -43,7 +43,7 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
     for k in aggregations:
         df = df.withColumn(aggregations.get(k), k(F.col(aggregations.get(k))).over(win))
         logger = getlogger('aggregation')
-        logger.debug(f'Performed {k} in column {aggregations.get(k)}')
+        logger.info(f'Performed {k} in column {aggregations.get(k)}')
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
 
 def format_timestamp(df: DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> DataFrame:
@@ -63,7 +63,7 @@ def format_timestamp(df: DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-
     for c in cols:
         df = df.withColumn(c, F.to_timestamp(F.date_format(F.col(c), timestamp), timestamp))
         logger = getlogger('format_timestamp')
-        logger.debug(f'Date formatting performed in column {c}')
+        logger.info(f'Date formatting performed in column {c}')
     return df
 
 def create_col_list (df: DataFrame, col: str) -> List[str]:
