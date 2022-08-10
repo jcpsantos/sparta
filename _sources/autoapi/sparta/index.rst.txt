@@ -13,7 +13,7 @@ Submodules
    delete/index.rst
    extract/index.rst
    load/index.rst
-   log/index.rst
+   logs/index.rst
    secret/index.rst
    transformation/index.rst
 
