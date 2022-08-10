@@ -2,7 +2,7 @@ from typing import Any, List, Dict
 from pyspark.sql.window import Window
 from pyspark.sql import DataFrame, functions as F
 from pyspark.sql.functions import *
-from sparta.log import getlogger
+from sparta.logs import getlogger
 
 def drop_duplicates(df:DataFrame, col_order: str, cols_partition:List[Any]) -> DataFrame:
     """Function that performs the deletion of duplicate data according to key columns.

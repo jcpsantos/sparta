@@ -2,7 +2,7 @@ from typing import Any, Dict
 from pyspark.sql import SparkSession, DataFrame
 import yaml
 from smart_open import open
-from sparta.log import getlogger
+from sparta.logs import getlogger
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 

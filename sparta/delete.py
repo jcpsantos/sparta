@@ -1,5 +1,5 @@
 from azure.storage.blob import ContainerClient
-from sparta.log import getlogger
+from sparta.logs import getlogger
 
 def delete_blob(dir_name:str, container_name:str, connect:str) -> None:
     """Function to delete files in a blob.

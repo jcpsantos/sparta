@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from sparta.log import getlogger
+from sparta.logs import getlogger
 
 def save_df_azure_dw(df: DataFrame, url_jdbc: str, tempdir: str, table: str, mode:str ='overwrite', max_str_length:int =4000) -> None:
     """Function to write to an Azure SQL DW.
