@@ -41,7 +41,7 @@ Attributes
    :type schema: str
    :param options: Configuration options for reading the DataFrame.
    :type options: dict
-   :param format: Format of the file to be read. Defaults to 'parquet'.
+   :param format: Format of the file to be read. Defaults to 'csv'.
    :type format: str, optional
    :param spark: Spark session. Defaults to spark.
    :type spark: SparkSession, optional
@@ -52,8 +52,8 @@ Attributes
    .. rubric:: Example
 
    >>> schema = 'epidemiological_week LONG, date DATE, order_for_place INT, state STRING, city STRING, city_ibge_code LONG, place_type STRING, last_available_confirmed INT'
-       path = '/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv'
-       df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
+   >>> path = '/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv'
+   >>> df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
 
 
 .. py:function:: read_yaml_df(path: str, spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
@@ -71,6 +71,6 @@ Attributes
    .. rubric:: Example
 
    >>> path = '/content/sample_data/schema_ingestao.yaml'
-       df = read_yaml_df(path)
+   >>> df = read_yaml_df(path)
 
 

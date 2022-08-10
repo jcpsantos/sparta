@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sparta.extract &mdash; Sparta 0.1 documentation</title>
+  <title>sparta.extract &mdash; Sparta 0.2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -115,7 +115,7 @@
 <li><p><strong>path</strong> (<em>str</em>) – Path where the file is located.</p></li>
 <li><p><strong>schema</strong> (<em>str</em>) – Pre-defined schema for reading.</p></li>
 <li><p><strong>options</strong> (<em>dict</em>) – Configuration options for reading the DataFrame.</p></li>
-<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format of the file to be read. Defaults to ‘parquet’.</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format of the file to be read. Defaults to ‘csv’.</p></li>
 <li><p><strong>spark</strong> (<em>SparkSession</em><em>, </em><em>optional</em>) – Spark session. Defaults to spark.</p></li>
 </ul>
 </dd>
@@ -128,8 +128,8 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">schema</span> <span class="o">=</span> <span class="s1">&#39;epidemiological_week LONG, date DATE, order_for_place INT, state STRING, city STRING, city_ibge_code LONG, place_type STRING, last_available_confirmed INT&#39;</span>
-<span class="go">    path = &#39;/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv&#39;</span>
-<span class="go">    df = read_with_schema(path, schema, {&#39;header&#39;: &#39;true&#39;}, &#39;csv&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">read_with_schema</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">},</span> <span class="s1">&#39;csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -154,7 +154,7 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/sample_data/schema_ingestao.yaml&#39;</span>
-<span class="go">    df = read_yaml_df(path)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">read_yaml_df</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
