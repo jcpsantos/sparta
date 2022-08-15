@@ -17,7 +17,7 @@ def drop_duplicates(df:DataFrame, col_order: str, cols_partition:List[Any]) -> D
         
     Example:
         >>> cols = ['longitude','latitude']
-            df = drop_duplicates(df, 'population', cols)
+        >>> df = drop_duplicates(df, 'population', cols)
     """
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
@@ -36,8 +36,8 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
        
     Example:
         >>> agg = {F.sum:'new_confirmed', F.first:'order_for_place'}
-            cols = ['state', 'city']
-            df = aggregation(df, 'date', cols, agg)
+        >>> cols = ['state', 'city']
+        >>> df = aggregation(df, 'date', cols, agg)
     """
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     for k in aggregations:
