@@ -113,7 +113,7 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
-<span class="go">    df = drop_duplicates(df, &#39;population&#39;, cols)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">drop_duplicates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -140,8 +140,8 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agg</span> <span class="o">=</span> <span class="p">{</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">:</span><span class="s1">&#39;new_confirmed&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">first</span><span class="p">:</span><span class="s1">&#39;order_for_place&#39;</span><span class="p">}</span>
-<span class="go">    cols = [&#39;state&#39;, &#39;city&#39;]</span>
-<span class="go">    df = aggregation(df, &#39;date&#39;, cols, agg)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">aggregation</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">agg</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

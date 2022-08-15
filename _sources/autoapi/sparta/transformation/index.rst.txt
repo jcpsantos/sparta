@@ -37,7 +37,7 @@ Functions
    .. rubric:: Example
 
    >>> cols = ['longitude','latitude']
-       df = drop_duplicates(df, 'population', cols)
+   >>> df = drop_duplicates(df, 'population', cols)
 
 
 .. py:function:: aggregation(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[str], aggregations: Dict[Any, str]) -> pyspark.sql.functions.DataFrame
@@ -59,8 +59,8 @@ Functions
    .. rubric:: Example
 
    >>> agg = {F.sum:'new_confirmed', F.first:'order_for_place'}
-       cols = ['state', 'city']
-       df = aggregation(df, 'date', cols, agg)
+   >>> cols = ['state', 'city']
+   >>> df = aggregation(df, 'date', cols, agg)
 
 
 .. py:function:: format_timestamp(df: pyspark.sql.functions.DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-dd HH:mm:ss"') -> pyspark.sql.functions.DataFrame
