@@ -3,6 +3,7 @@ from pyspark.sql import SparkSession, DataFrame
 import yaml
 from smart_open import open
 from sparta.logs import getlogger
+from pyspark.sql.types import _parse_datatype_string
 
 spark = SparkSession.builder.master("local[*]").getOrCreate()
 
@@ -26,7 +27,12 @@ def read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, for
     """
     if options is None:
         options = {}
-    return spark.read.format(format).schema(schema).options(**options).load(path)
+    
+    ddl_schema = _parse_datatype_string(schema)
+    logger = getlogger('read_with_schema')
+    logger.info(f'Schema created -> {ddl_schema}')
+    
+    return spark.read.format(format).schema(ddl_schema).options(**options).load(path)
 
 
 def read_yaml_df(path:str, spark: SparkSession = spark) -> DataFrame:
@@ -50,6 +56,6 @@ def read_yaml_df(path:str, spark: SparkSession = spark) -> DataFrame:
           Loader = yaml.SafeLoader
       yaml_dict = list(yaml.load_all(f, Loader=Loader))
       logger = getlogger('read_yaml_df')
-      logger.info('Yaml converted to a list.')
+      logger.info(f'Yaml {path} converted to a list.')
 
     return spark.createDataFrame(yaml_dict)
