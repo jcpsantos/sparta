@@ -22,7 +22,7 @@ copyright = '2022, Juan Caio'
 author = 'Juan Caio'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2'
+release = '0.2.1'
 
 
 # -- General configuration ---------------------------------------------------
