@@ -51,10 +51,8 @@ Functions
    :type col_order: str
    :param cols_partition: List of key columns, for partitioning.
    :type cols_partition: list
-   :param aggregations: A dictionary with the columns and the type of aggregation that will be used.
+   :param aggregations: A dictionary with the columns and the type of aggregation that will be used. When the same type of aggregation occurs, a list with the column names must be passed.
    :type aggregations: dict
-   :param When the same type of aggregation occurs:
-   :param a list with the column names must be passed.:
 
    :returns: DataFrame with aggregated columns.
    :rtype: DataFrame
@@ -82,7 +80,7 @@ Functions
    :type df: DataFrame
    :param cols: List of columns that will be converted.
    :type cols: list
-   :param timestamp: Timestamp format.. Defaults to '"yyyy-MM-dd HH:mm:ss"'.
+   :param timestamp: Timestamp format. Defaults to '"yyyy-MM-dd HH:mm:ss"'.
    :type timestamp: _type_, optional
 
    :returns: DataFrame with the columns converted to a predefined timestamp format.
