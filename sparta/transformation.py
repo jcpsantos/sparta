@@ -32,8 +32,7 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
         df (DataFrame): DataFrame.
         col_order (str): Column to be used in sorting.
         cols_partition (list): List of key columns, for partitioning.
-        aggregations (dict): A dictionary with the columns and the type of aggregation that will be used. 
-        When the same type of aggregation occurs, a list with the column names must be passed.
+        aggregations (dict): A dictionary with the columns and the type of aggregation that will be used. When the same type of aggregation occurs, a list with the column names must be passed.
 
     Returns:
         DataFrame: DataFrame with aggregated columns.
@@ -90,7 +89,7 @@ def format_timestamp(df: DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-
     Args:
         df (DataFrame): DataFrame.
         cols (list): List of columns that will be converted.
-        timestamp (_type_, optional): Timestamp format.. Defaults to '"yyyy-MM-dd HH:mm:ss"'.
+        timestamp (_type_, optional): Timestamp format. Defaults to '"yyyy-MM-dd HH:mm:ss"'.
 
     Returns:
         DataFrame: DataFrame with the columns converted to a predefined timestamp format.
