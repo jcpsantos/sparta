@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sparta.transformation &mdash; Sparta 0.2.1 documentation</title>
+  <title>sparta.transformation &mdash; Sparta 0.3.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -81,7 +81,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.transformation.drop_duplicates" title="sparta.transformation.drop_duplicates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicates</span></code></a>(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[Any]) → pyspark.sql.functions.DataFrame</p></td>
 <td><p>Function that performs the deletion of duplicate data according to key columns.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sparta.transformation.aggregation" title="sparta.transformation.aggregation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aggregation</span></code></a>(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[str], aggregations: Dict[Any, str]) → pyspark.sql.functions.DataFrame</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sparta.transformation.aggregation" title="sparta.transformation.aggregation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aggregation</span></code></a>(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[str], aggregations: Dict[Any, Any]) → pyspark.sql.functions.DataFrame</p></td>
 <td><p>This function performs aggregations on columns.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.transformation.format_timestamp" title="sparta.transformation.format_timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_timestamp</span></code></a>(df: pyspark.sql.functions.DataFrame, cols: List[str], timestamp: str = '&quot;yyyy-MM-dd HH:mm:ss&quot;') → pyspark.sql.functions.DataFrame</p></td>
@@ -89,6 +89,9 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sparta.transformation.create_col_list" title="sparta.transformation.create_col_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_col_list</span></code></a>(df: pyspark.sql.functions.DataFrame, col: str) → List[str]</p></td>
 <td><p>Function that creates a list with unique values from a column.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.transformation.typed_columns" title="sparta.transformation.typed_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">typed_columns</span></code></a>(df: pyspark.sql.functions.DataFrame, typecase: str = 'lower') → pyspark.sql.functions.DataFrame</p></td>
+<td><p>Function that transforms DataFrame columns into lowercase or uppercase.</p></td>
 </tr>
 </tbody>
 </table>
@@ -120,7 +123,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.transformation.aggregation">
-<span class="sig-prename descclassname"><span class="pre">sparta.transformation.</span></span><span class="sig-name descname"><span class="pre">aggregation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#sparta.transformation.aggregation" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sparta.transformation.</span></span><span class="sig-name descname"><span class="pre">aggregation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#sparta.transformation.aggregation" title="Permalink to this definition"></a></dt>
 <dd><p>This function performs aggregations on columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -129,6 +132,8 @@
 <li><p><strong>col_order</strong> (<em>str</em>) – Column to be used in sorting.</p></li>
 <li><p><strong>cols_partition</strong> (<em>list</em>) – List of key columns, for partitioning.</p></li>
 <li><p><strong>aggregations</strong> (<em>dict</em>) – A dictionary with the columns and the type of aggregation that will be used.</p></li>
+<li><p><strong>occurs</strong> (<em>When the same type of aggregation</em>) – </p></li>
+<li><p><strong>passed.</strong> (<em>a list with the column names must be</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -140,6 +145,13 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agg</span> <span class="o">=</span> <span class="p">{</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">:</span><span class="s1">&#39;new_confirmed&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">first</span><span class="p">:</span><span class="s1">&#39;order_for_place&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">aggregation</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">agg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When the same type of aggregation occurs on different columns.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agg</span> <span class="o">=</span> <span class="p">{</span><span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">:[</span><span class="s1">&#39;new_confirmed&#39;</span><span class="p">,</span><span class="s1">&#39;order_for_place&#39;</span><span class="p">]}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">aggregation</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">agg</span><span class="p">)</span>
 </pre></div>
@@ -191,6 +203,33 @@
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create_col_list</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.transformation.typed_columns">
+<span class="sig-prename descclassname"><span class="pre">sparta.transformation.</span></span><span class="sig-name descname"><span class="pre">typed_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.functions.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typecase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lower'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.functions.DataFrame</span></span></span><a class="headerlink" href="#sparta.transformation.typed_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Function that transforms DataFrame columns into lowercase or uppercase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame that will have the columns converted to lowercase or uppercase.</p></li>
+<li><p><strong>typecase</strong> (<em>str</em><em>, </em><em>optional</em>) – The column transformation type can be lower (lowercase) or upper (uppercase).. Defaults to ‘lower’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the value of the typecase argument is not upper or lower.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DataFrame with columns converted to lowercase or uppercase.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">typed_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

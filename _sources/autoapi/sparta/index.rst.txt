@@ -16,5 +16,6 @@ Submodules
    logs/index.rst
    secret/index.rst
    transformation/index.rst
+   validator/index.rst
 
 
