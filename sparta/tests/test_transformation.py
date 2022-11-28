@@ -1,6 +1,6 @@
 import pytest
 from chispa.dataframe_comparer import assert_df_equality
-from sparta.transformation import drop_duplicates, aggregation, format_timestamp, create_col_list
+from sparta.transformation import drop_duplicates, aggregation, format_timestamp, create_col_list, typed_columns
 from pyspark.sql import SparkSession, functions as F
 from datetime import datetime
 
@@ -32,23 +32,26 @@ def test_drop_duplicates() -> None:
 def test_aggregation() -> None:
     """Test to check if the aggregation is done correctly."""    
     source_data = [
-            ('jose', 21, 'BA'),
-            ('enzo', 11, 'BA'),
-            ('maria', 32, 'PA'),
-            ('joao', 44, 'RJ')
+            ('enzo', 11, 'BA', 5),
+            ('jose', 21, 'BA', 10),
+            ('maria', 32, 'PA', 23),
+            ('joao', 44, 'RJ', 16),
+            ('joao', 45, 'RJ', 52),
+            ('zezinho', 32, 'RJ', 28),
+            ('jojo', 8, 'PA', 16),
     ]
 
-    source_df = spark.createDataFrame(source_data, ['name', 'age', 'state'])
+    source_df = spark.createDataFrame(source_data, ['name', 'age', 'state', 'value'])
 
-    actual_df = aggregation(source_df, 'name', ['state'], {F.avg:'age'})
+    actual_df = aggregation(source_df, 'name', ['state'], {F.sum: ['age', 'value'], F.avg:'age'})
 
     expected_data = [
-            ('jose', 21.0, 'BA'),
-            ('maria', 32.0, 'PA'),
-            ('joao', 44.0, 'RJ')
-    ]
+            ('BA', 32, 15, 16.0),
+            ('PA', 40, 39, 20.0),
+            ('RJ', 121, 96, 40.333333333333336),
+            ]
 
-    expected_df = spark.createDataFrame(expected_data, ['name', 'age', 'state'])
+    expected_df = spark.createDataFrame(expected_data, ['state', 'age', 'value', 'age_1'])
 
     assert_df_equality(actual_df, expected_df, ignore_row_order=True)
     
@@ -91,3 +94,27 @@ def test_create_col_list() -> None:
 
     expected_list = ['jose', 'joao','maria']
     assert actual_list == expected_list
+    
+def test_typed_columns() -> None:
+    """Test to see if columns have been capitalized."""    
+    source_data = [
+            ('jose', '1', 'BA'),
+            ('jose', '2', 'BA'),
+            ('maria', '3', 'PA'),
+            ('joao', '4', 'RJ')
+    ]
+
+    source_df = spark.createDataFrame(source_data, ['name', 'index', 'state'])
+
+    actual_df = typed_columns(source_df, 'upper')
+
+    expected_data = [
+            ('jose', '1', 'BA'),
+            ('jose', '2', 'BA'),
+            ('maria', '3', 'PA'),
+            ('joao', '4', 'RJ')
+    ]
+
+    expected_df = spark.createDataFrame(expected_data, ['NAME', 'INDEX', 'STATE'])
+
+    assert_df_equality(actual_df, expected_df)
