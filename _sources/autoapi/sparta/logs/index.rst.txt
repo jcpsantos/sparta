@@ -1,0 +1,37 @@
+:py:mod:`sparta.logs`
+=====================
+
+.. py:module:: sparta.logs
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   sparta.logs.getlogger
+
+
+
+.. py:function:: getlogger(name: str, level: logging = logging.INFO)
+
+   Function that generates custom logs.
+
+   :param name: Run name.
+   :type name: str
+   :param level: Log level. Defaults to logging.INFO.
+   :type level: logging, optional
+
+   :returns: Custom log.
+   :rtype: logging
+
+   .. rubric:: Example
+
+   >>> logger = getlogger('test')
+   >>> logger.info('test logs')
+
+
