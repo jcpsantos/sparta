@@ -127,7 +127,7 @@ def typed_columns(df:DataFrame, typecase:str = 'lower') -> DataFrame:
 
     Args:
         df (DataFrame): DataFrame that will have the columns converted to lowercase or uppercase.
-        typecase (str, optional): The column transformation type can be lower (lowercase) or upper (uppercase).. Defaults to 'lower'.
+        typecase (str, optional): The column transformation type can be lower (lowercase) or upper (uppercase). Defaults to 'lower'.
 
     Raises:
         ValueError: If the value of the typecase argument is not upper or lower.
