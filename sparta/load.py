@@ -68,15 +68,9 @@ def create_hive_table(df: DataFrame, table: str, num_buckets: int, *grouping_col
         >>> create_hive_table(df, "table_name", 5, "col1", "col2", "col3")
     """
     logger = getlogger('create_hive_table')
+    
     start_time = time()
-
-    # Create the table in Hive
-    columns = ", ".join(df.columns)
-    query = f"CREATE TABLE IF NOT EXISTS {table} ({columns}) CLUSTERED BY ({', '.join(grouping_columns)}) INTO {num_buckets} BUCKETS"
-    df.sql_ctx.sql(query)
-
-    # Insert data into the table
-    df.write.insertInto(table, overwrite=True)
-
-    logger.info(f"Table {table} was successfully created in Hive.")
-    logger.info(f"Execution time: {timedelta(seconds=time() - start_time)}")
+    
+    df.write.format('parquet').bucketBy(value, keys).mode("overwrite").saveAsTable(table)
+    logger.info(f'Table {table} was successfully created in Hive.')
+    logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")

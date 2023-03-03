@@ -25,7 +25,7 @@ def read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, for
         options = {}
 
     if spark is None:
-        with SparkSession.builder.master("local[*]").getOrCreate() as spark:
+            spark = SparkSession.builder.master("local[*]").getOrCreate()
             return read_with_schema(path, schema, options, format, spark)
 
     try:
@@ -52,8 +52,8 @@ def read_yaml_df(path: str, spark: SparkSession = None) -> DataFrame:
     """
     
     if spark is None:
-        with SparkSession.builder.master("local[*]").getOrCreate() as spark:
-            return read_yaml_df(path, spark)
+        spark = SparkSession.builder.master("local[*]").getOrCreate()
+        return read_with_schema(path, schema, options, format, spark)
         
     with open(path) as f:
         try:
