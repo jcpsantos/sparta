@@ -3,7 +3,7 @@ from pyspark.sql.window import Window
 from pyspark.sql import DataFrame, functions as F
 from pyspark.sql.functions import *
 from sparta.logs import getlogger
-from sparta.validator import validator_typed_columns
+from sparta.validator import validator_typed_columns, validator_dataframe_columns
 from time import time
 from datetime import timedelta
 
@@ -22,8 +22,12 @@ def drop_duplicates(df:DataFrame, col_order: str, cols_partition:List[Any]) -> D
         >>> cols = ['longitude','latitude']
         >>> df = drop_duplicates(df, 'population', cols)
     """
+    validator_dataframe_columns(df, cols_partition, 'Key columns for partitioning')
+    validator_dataframe_columns(df, [col_order], 'Column for ordering')
+    
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     return df.withColumn("col_rank", F.row_number().over(win)).filter(F.col('col_rank') == 1).drop('col_rank')
+
 
 def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggregations:Dict[Any, Any]) -> DataFrame:
     """This function performs aggregations on columns.
