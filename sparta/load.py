@@ -71,6 +71,6 @@ def create_hive_table(df: DataFrame, table: str, num_buckets: int, *grouping_col
     
     start_time = time()
     
-    df.write.format('parquet').bucketBy(value, keys).mode("overwrite").saveAsTable(table)
+    df.write.format('parquet').bucketBy(num_buckets, grouping_columns).mode("overwrite").saveAsTable(table)
     logger.info(f'Table {table} was successfully created in Hive.')
     logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")
