@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sparta.logs &mdash; Sparta 0.3.0 documentation</title>
+  <title>sparta.logs &mdash; Sparta 0.4.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -78,27 +78,29 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.logs.getlogger" title="sparta.logs.getlogger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getlogger</span></code></a>(name: str, level: logging = logging.INFO)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.logs.getlogger" title="sparta.logs.getlogger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getlogger</span></code></a>(name: str, level: int = logging.INFO, format: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', file: str = None) → logging.Logger</p></td>
 <td><p>Function that generates custom logs.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.logs.getlogger">
-<span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">getlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">logging</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">logging.INFO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sparta.logs.getlogger" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">getlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">logging.INFO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(name)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">logging.Logger</span></span></span><a class="headerlink" href="#sparta.logs.getlogger" title="Permalink to this definition"></a></dt>
 <dd><p>Function that generates custom logs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Run name.</p></li>
-<li><p><strong>level</strong> (<em>logging</em><em>, </em><em>optional</em>) – Log level. Defaults to logging.INFO.</p></li>
+<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Log level. Defaults to logging.INFO.</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – Log format. Defaults to ‘%(asctime)s - %(name)s - %(levelname)s - %(message)s’.</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – Log file location. Defaults to None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Custom log.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>logging</p>
+<dd class="field-odd"><p>logging.Logger</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>

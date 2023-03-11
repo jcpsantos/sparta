@@ -18,23 +18,9 @@ Functions
 
 
 
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   sparta.extract.spark
-
-
-.. py:data:: spark
-   
-
-   
-
-.. py:function:: read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
+.. py:function:: read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = None) -> pyspark.sql.DataFrame
 
    Function to read DataFrames with predefined schema.
-
    :param path: Path where the file is located.
    :type path: str
    :param schema: Pre-defined schema for reading.
@@ -43,7 +29,7 @@ Attributes
    :type options: dict
    :param format: Format of the file to be read. Defaults to 'csv'.
    :type format: str, optional
-   :param spark: Spark session. Defaults to spark.
+   :param spark: Spark session. Defaults to None.
    :type spark: SparkSession, optional
 
    :returns: DataFrame read with predefined schema.
@@ -56,21 +42,16 @@ Attributes
    >>> df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
 
 
-.. py:function:: read_yaml_df(path: str, spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
+.. py:function:: read_yaml_df(path: str, spark: pyspark.sql.SparkSession = None) -> pyspark.sql.DataFrame
 
-   Function to read a yaml file as a DataFrame.
+   Read a YAML file as a Spark DataFrame.
 
-   :param path: Path of the yaml file.
+   :param path: Path of the YAML file.
    :type path: str
-   :param spark: Spark session. Defaults to spark.
+   :param spark: Spark session to use. Defaults to spark.
    :type spark: SparkSession, optional
 
-   :returns: Yaml file read and converted to a DataFrame.
+   :returns: YAML file converted to a DataFrame.
    :rtype: DataFrame
-
-   .. rubric:: Example
-
-   >>> path = '/content/sample_data/schema_ingestao.yaml'
-   >>> df = read_yaml_df(path)
 
 

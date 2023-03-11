@@ -1,0 +1,30 @@
+:py:mod:`sparta.validator`
+==========================
+
+.. py:module:: sparta.validator
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   sparta.validator.validator_typed_columns
+
+
+
+.. py:function:: validator_typed_columns(typecase: str) -> str
+
+   Function to validate the value received in the typecase argument of the typed_columns function.
+
+   :param typecase: The value of the typecase argument received in the typed_columns function.
+   :type typecase: str
+
+   :returns: Validation indicating if the argument is ok or if it contains an error.
+   :rtype: str
+
+

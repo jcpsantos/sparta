@@ -17,17 +17,21 @@ Functions
 
 
 
-.. py:function:: getlogger(name: str, level: logging = logging.INFO)
+.. py:function:: getlogger(name: str, level: int = logging.INFO, format: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', file: str = None) -> logging.Logger
 
    Function that generates custom logs.
 
    :param name: Run name.
    :type name: str
    :param level: Log level. Defaults to logging.INFO.
-   :type level: logging, optional
+   :type level: int, optional
+   :param format: Log format. Defaults to '%(asctime)s - %(name)s - %(levelname)s - %(message)s'.
+   :type format: str, optional
+   :param file: Log file location. Defaults to None.
+   :type file: str, optional
 
    :returns: Custom log.
-   :rtype: logging
+   :rtype: logging.Logger
 
    .. rubric:: Example
 

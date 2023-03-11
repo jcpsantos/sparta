@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sparta.load &mdash; Sparta 0.3.0 documentation</title>
+  <title>sparta.load &mdash; Sparta 0.4.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -79,46 +79,52 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.load.save_df_azure_dw" title="sparta.load.save_df_azure_dw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_df_azure_dw</span></code></a>(df: pyspark.sql.DataFrame, url_jdbc: str, tempdir: str, table: str, mode: str = 'overwrite', max_str_length: int = 4000) → None</p></td>
-<td><p>Function to write to an Azure SQL DW.</p></td>
+<td><p>Write a PySpark DataFrame to an Azure SQL DW table.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sparta.load.create_hive_table" title="sparta.load.create_hive_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_hive_table</span></code></a>(df: pyspark.sql.DataFrame, table: str, value: int, *keys: str) → None</p></td>
-<td><p>Function to transform DataFrame into tables in Spark Warehouse.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sparta.load.create_hive_table" title="sparta.load.create_hive_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_hive_table</span></code></a>(df: pyspark.sql.DataFrame, table: str, num_buckets: int, *grouping_columns: str) → None</p></td>
+<td><p>Transform a DataFrame into a table in the Spark Warehouse.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.load.save_df_azure_dw">
 <span class="sig-prename descclassname"><span class="pre">sparta.load.</span></span><span class="sig-name descname"><span class="pre">save_df_azure_dw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_jdbc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'overwrite'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_str_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.load.save_df_azure_dw" title="Permalink to this definition"></a></dt>
-<dd><p>Function to write to an Azure SQL DW.</p>
+<dd><p>Write a PySpark DataFrame to an Azure SQL DW table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame that will be written.</p></li>
-<li><p><strong>url_jdbc</strong> (<em>str</em>) – JDBC connection URL.</p></li>
-<li><p><strong>tempdir</strong> (<em>str</em>) – Path for writing temporary file.</p></li>
-<li><p><strong>table</strong> (<em>str</em>) – Name of the table where the DataFrame will be written in the Database.</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – Write mode, can be append or overwrite.. Defaults to ‘overwrite’.</p></li>
-<li><p><strong>max_str_length</strong> (<em>int</em><em>, </em><em>optional</em>) – Set string length for all NVARCHAR. Defaults to 4000.</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The PySpark DataFrame to be written.</p></li>
+<li><p><strong>url_jdbc</strong> (<em>str</em>) – The JDBC connection URL for the Azure SQL DW.</p></li>
+<li><p><strong>tempdir</strong> (<em>str</em>) – Path for writing temporary files.</p></li>
+<li><p><strong>table</strong> (<em>str</em>) – The name of the table where the DataFrame will be written.</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – The mode for writing the table (overwrite or append). Defaults to ‘overwrite’.</p></li>
+<li><p><strong>max_str_length</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum string length for all NVARCHAR columns. Defaults to 4000.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError</strong> – In case the mode values are not -&gt; append or overwrite.</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the mode parameter is not ‘overwrite’ or ‘append’.</p></li>
+<li><p><strong>Exception</strong> – If the DataFrame cannot be written to the Azure SQL DW.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.load.create_hive_table">
-<span class="sig-prename descclassname"><span class="pre">sparta.load.</span></span><span class="sig-name descname"><span class="pre">create_hive_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.load.create_hive_table" title="Permalink to this definition"></a></dt>
-<dd><p>Function to transform DataFrame into tables in Spark Warehouse.</p>
+<span class="sig-prename descclassname"><span class="pre">sparta.load.</span></span><span class="sig-name descname"><span class="pre">create_hive_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_buckets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grouping_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.load.create_hive_table" title="Permalink to this definition"></a></dt>
+<dd><p>Transform a DataFrame into a table in the Spark Warehouse.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame that will be transformed</p></li>
-<li><p><strong>table</strong> (<em>str</em>) – The name of the table to be created.</p></li>
-<li><p><strong>value</strong> (<em>int</em>) – The number of buckets to save table.</p></li>
-<li><p><strong>*keys</strong> (<em>str</em>) – Names of the columns to be grouped.</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The DataFrame to transform.</p></li>
+<li><p><strong>table</strong> (<em>str</em>) – The name of the table to create.</p></li>
+<li><p><strong>num_buckets</strong> (<em>int</em>) – The number of buckets to save the table.</p></li>
+<li><p><strong>*grouping_columns</strong> (<em>str</em>) – The names of the columns to group by.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>

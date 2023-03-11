@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sparta.extract &mdash; Sparta 0.3.0 documentation</title>
+  <title>sparta.extract &mdash; Sparta 0.4.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -78,52 +78,34 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.extract.read_with_schema" title="sparta.extract.read_with_schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_with_schema</span></code></a>(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = spark) → pyspark.sql.DataFrame</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.extract.read_with_schema" title="sparta.extract.read_with_schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_with_schema</span></code></a>(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = None) → pyspark.sql.DataFrame</p></td>
 <td><p>Function to read DataFrames with predefined schema.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sparta.extract.read_yaml_df" title="sparta.extract.read_yaml_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_yaml_df</span></code></a>(path: str, spark: pyspark.sql.SparkSession = spark) → pyspark.sql.DataFrame</p></td>
-<td><p>Function to read a yaml file as a DataFrame.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sparta.extract.read_yaml_df" title="sparta.extract.read_yaml_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_yaml_df</span></code></a>(path: str, spark: pyspark.sql.SparkSession = None) → pyspark.sql.DataFrame</p></td>
+<td><p>Read a YAML file as a Spark DataFrame.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
-<table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.extract.spark" title="sparta.extract.spark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spark</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py data">
-<dt class="sig sig-object py" id="sparta.extract.spark">
-<span class="sig-prename descclassname"><span class="pre">sparta.extract.</span></span><span class="sig-name descname"><span class="pre">spark</span></span><a class="headerlink" href="#sparta.extract.spark" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.extract.read_with_schema">
-<span class="sig-prename descclassname"><span class="pre">sparta.extract.</span></span><span class="sig-name descname"><span class="pre">read_with_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.SparkSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">spark</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.DataFrame</span></span></span><a class="headerlink" href="#sparta.extract.read_with_schema" title="Permalink to this definition"></a></dt>
-<dd><p>Function to read DataFrames with predefined schema.</p>
+<span class="sig-prename descclassname"><span class="pre">sparta.extract.</span></span><span class="sig-name descname"><span class="pre">read_with_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.SparkSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.DataFrame</span></span></span><a class="headerlink" href="#sparta.extract.read_with_schema" title="Permalink to this definition"></a></dt>
+<dd><p>Function to read DataFrames with predefined schema.
+:param path: Path where the file is located.
+:type path: str
+:param schema: Pre-defined schema for reading.
+:type schema: str
+:param options: Configuration options for reading the DataFrame.
+:type options: dict
+:param format: Format of the file to be read. Defaults to ‘csv’.
+:type format: str, optional
+:param spark: Spark session. Defaults to None.
+:type spark: SparkSession, optional</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – Path where the file is located.</p></li>
-<li><p><strong>schema</strong> (<em>str</em>) – Pre-defined schema for reading.</p></li>
-<li><p><strong>options</strong> (<em>dict</em>) – Configuration options for reading the DataFrame.</p></li>
-<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format of the file to be read. Defaults to ‘csv’.</p></li>
-<li><p><strong>spark</strong> (<em>SparkSession</em><em>, </em><em>optional</em>) – Spark session. Defaults to spark.</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DataFrame read with predefined schema.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame read with predefined schema.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DataFrame</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>DataFrame</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -136,27 +118,22 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.extract.read_yaml_df">
-<span class="sig-prename descclassname"><span class="pre">sparta.extract.</span></span><span class="sig-name descname"><span class="pre">read_yaml_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.SparkSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">spark</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.DataFrame</span></span></span><a class="headerlink" href="#sparta.extract.read_yaml_df" title="Permalink to this definition"></a></dt>
-<dd><p>Function to read a yaml file as a DataFrame.</p>
+<span class="sig-prename descclassname"><span class="pre">sparta.extract.</span></span><span class="sig-name descname"><span class="pre">read_yaml_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.SparkSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyspark.sql.DataFrame</span></span></span><a class="headerlink" href="#sparta.extract.read_yaml_df" title="Permalink to this definition"></a></dt>
+<dd><p>Read a YAML file as a Spark DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – Path of the yaml file.</p></li>
-<li><p><strong>spark</strong> (<em>SparkSession</em><em>, </em><em>optional</em>) – Spark session. Defaults to spark.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Path of the YAML file.</p></li>
+<li><p><strong>spark</strong> (<em>SparkSession</em><em>, </em><em>optional</em>) – Spark session to use. Defaults to spark.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Yaml file read and converted to a DataFrame.</p>
+<dd class="field-even"><p>YAML file converted to a DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DataFrame</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/sample_data/schema_ingestao.yaml&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">read_yaml_df</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </section>
