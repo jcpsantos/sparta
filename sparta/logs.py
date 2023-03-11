@@ -3,11 +3,9 @@ import sys
 
 def getlogger(name:str, level:logging=logging.INFO):
     """Function that generates custom logs.
-
     Args:
         name (str): Run name.
         level (logging, optional): Log level. Defaults to logging.INFO.
-
     Returns:
         logging: Custom log.
         
