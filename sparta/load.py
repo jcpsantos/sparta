@@ -75,7 +75,26 @@ def create_hive_table(df: DataFrame, table: str, num_buckets: int, *grouping_col
     logger.info(f'Table {table} was successfully created in Hive.')
     logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")
     
-def create_delta_table(df: DataFrame, table: str, *grouping_columns: str) -> None:
+def create_delta_table(df: DataFrame, spark: SparkSession, table: str, *grouping_columns: str) -> None:
+    """
+    Creates a Delta table in Hive using the provided DataFrame and optimizes it using ZORDER by the given grouping columns.
+
+    Args:
+        df (DataFrame): The DataFrame to be written as a Delta table.
+        spark (SparkSession): The Spark session used to interact with the Delta and Hive tables. 
+                              If None, a new Spark session will be created.
+        table (str): The name of the Delta table to be created in Hive.
+        grouping_columns (str): Column names by which the table should be optimized using ZORDER.
+                                This is a variadic argument, so one or more column names can be passed.
+
+    Returns:
+        None: This function does not return any values, it writes the DataFrame as a Delta table and optimizes it.
+
+    Logs:
+        - Logs the successful creation of the Delta table.
+        - Logs the total execution time for the table creation and optimization process.
+    """
+    
     logger = getlogger('create_delta_table')
     
     start_time = time()
@@ -84,7 +103,9 @@ def create_delta_table(df: DataFrame, table: str, *grouping_columns: str) -> Non
         spark = SparkSession.builder.master("local[*]").getOrCreate()
     
     df.write.format('delta').saveAsTable(table)
-    spark.sql(f"OPTIMIZE {table} ZORDER BY ({grouping_columns})")
+    # Assuming grouping_columns is a tuple or list of column names
+    columns_str = ", ".join(grouping_columns)  
+    spark.sql(f"OPTIMIZE {table} ZORDER BY ({columns_str})")
     
     logger.info(f'Table {table} was successfully created in DeltaHive.')
     logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")
