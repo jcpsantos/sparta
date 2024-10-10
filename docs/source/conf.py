@@ -22,7 +22,7 @@ copyright = '2022, Juan Caio'
 author = 'Juan Caio'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2'
+release = '0.5.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,7 +35,9 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autodoc.typehints",
     "autoapi.extension",
+    'sphinx.ext.duration',
     "sphinx.ext.autosummary",
+    'sphinx.ext.doctest'
 ]
 
 #extensions.append('autoapi.extension')
@@ -55,6 +57,8 @@ autoapi_options = [
     "special-members",
     "imported-members",
 ]
+
+autoapi_type = 'python'
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -71,7 +75,7 @@ language = "en"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

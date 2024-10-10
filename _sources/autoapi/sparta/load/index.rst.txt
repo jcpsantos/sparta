@@ -1,22 +1,21 @@
-:py:mod:`sparta.load`
-=====================
+sparta.load
+===========
 
 .. py:module:: sparta.load
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    sparta.load.save_df_azure_dw
    sparta.load.create_hive_table
+   sparta.load.create_delta_table
 
 
+Module Contents
+---------------
 
 .. py:function:: save_df_azure_dw(df: pyspark.sql.DataFrame, url_jdbc: str, tempdir: str, table: str, mode: str = 'overwrite', max_str_length: int = 4000) -> None
 
@@ -57,5 +56,32 @@ Functions
    .. rubric:: Example
 
    >>> create_hive_table(df, "table_name", 5, "col1", "col2", "col3")
+
+
+.. py:function:: create_delta_table(df: pyspark.sql.DataFrame, spark: pyspark.sql.SparkSession, table: str, *grouping_columns: str) -> None
+
+   Creates a Delta table in Hive using the provided DataFrame and optimizes it using ZORDER by the given grouping columns.
+
+   :param df: The DataFrame to be written as a Delta table.
+   :type df: DataFrame
+   :param spark: The Spark session used to interact with the Delta and Hive tables.
+                 If None, a new Spark session will be created.
+   :type spark: SparkSession
+   :param table: The name of the Delta table to be created in Hive.
+   :type table: str
+   :param grouping_columns: Column names by which the table should be optimized using ZORDER.
+                            This is a variadic argument, so one or more column names can be passed.
+   :type grouping_columns: str
+
+   :returns: This function does not return any values, it writes the DataFrame as a Delta table and optimizes it.
+   :rtype: None
+
+   Logs:
+       - Logs the successful creation of the Delta table.
+       - Logs the total execution time for the table creation and optimization process.
+
+   .. rubric:: Example
+
+   >>> create_delta_table(df, spark,"table_name","pedido", "status")
 
 

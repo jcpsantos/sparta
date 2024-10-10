@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
@@ -12,14 +12,13 @@ dev_packages = [
     "pytest-cov>=3.0.0",
     "mypy>=0.942",
     "types-pyyaml>=6.0.7",
-    "black>=22.3.0",
     "flake8>=4.0.1",
     "docstr-coverage>=2.2.0",
 ]
     
 setup(
-    name = 'sparta',
-    version = '0.2.6',
+    name = 'pysparta',
+    version = '0.5.0',
     author = 'Juan Caio',
     author_email = 'juancaiops@gmail.com',
     packages = ['sparta'],
@@ -31,7 +30,8 @@ setup(
     extras_require={"dev": dev_packages},
     python_requires=">= 3.7",
     project_urls = {
-        'Source code': 'https://github.com/jcpsantos/sparta'
+        'Source code': 'https://github.com/jcpsantos/sparta',
+        'Documentation': 'https://jcpsantos.github.io/sparta/'
     },
     license = 'GNU General Public License v2.0',
     keywords = 'spark etl data sparta',

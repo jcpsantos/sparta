@@ -1,21 +1,21 @@
-:py:mod:`sparta.validator`
-==========================
+sparta.validator
+================
 
 .. py:module:: sparta.validator
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    sparta.validator.validator_typed_columns
+   sparta.validator.validator_dataframe_columns
+   sparta.validator.validate_column_types
 
 
+Module Contents
+---------------
 
 .. py:function:: validator_typed_columns(typecase: str) -> str
 
@@ -26,5 +26,51 @@ Functions
 
    :returns: Validation indicating if the argument is ok or if it contains an error.
    :rtype: str
+
+
+.. py:function:: validator_dataframe_columns(df: pyspark.sql.DataFrame, columns: list, log: str = 'validator_dataframe_columns') -> None
+
+   Function to validate if the reported columns really exist in the dataframe.
+
+   :param df: The dataframe to be checked.
+   :type df: DataFrame
+   :param columns: List with the name of the columns that will be checked in the dataframe.
+   :type columns: list
+   :param log: Information that will be recorded in the validator log.
+   :type log: str
+
+
+.. py:function:: validate_column_types(df: pyspark.sql.DataFrame, expected_columns: Dict[Any, Any]) -> bool
+
+   Validates that a DataFrame has the expected column names and data types.
+
+   This function checks if the given DataFrame contains all the expected columns and whether
+   their data types match the expected types. If any column is missing or has a different
+   data type than expected, it logs an error message and returns `False`. If all columns
+   match the expectations, it returns `True`.
+
+   :param df: The Spark DataFrame to validate.
+   :type df: DataFrame
+   :param expected_columns: A dictionary where the keys are the expected column names
+                            and the values are the expected data types (as strings).
+   :type expected_columns: dict
+
+   :returns:
+
+             `True` if the DataFrame has all the expected columns with the correct data types,
+                   `False` otherwise.
+   :rtype: bool
+
+   :raises None: This function does not raise exceptions, but logs errors using the logger
+   :raises in case of validation failure.:
+
+   .. rubric:: Example
+
+   >>> expected_columns = {
+       'name': 'string',
+       'age': 'int',
+       'salary': 'double'
+   }
+   >>> validate_column_types(df, expected_columns)
 
 

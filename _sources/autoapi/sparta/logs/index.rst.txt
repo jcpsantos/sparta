@@ -1,23 +1,22 @@
-:py:mod:`sparta.logs`
-=====================
+sparta.logs
+===========
 
 .. py:module:: sparta.logs
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sparta.logs.getlogger
+   sparta.logs.spark_property_calculator
 
 
 Module Contents
 ---------------
 
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   sparta.logs.getlogger
-
-
-
-.. py:function:: getlogger(name: str, level: logging = logging.INFO)
+.. py:function:: getlogger(name: str, level: logging = logging.INFO) -> logging
 
    Function that generates custom logs.
    :param name: Run name.
@@ -32,5 +31,30 @@ Functions
 
    >>> logger = getlogger('test')
    >>> logger.info('test logs')
+
+
+.. py:function:: spark_property_calculator(number_of_nodes: int, cores_per_node: int, total_memory_per_node: int, spark_executors_cores: int = 5, memory_fraction: float = 0.9) -> Dict[str, Any]
+
+   Calculates the optimal Spark property configuration based on the number of nodes, cores per node,
+   and the total available memory per node.
+
+   :param number_of_nodes: Total number of nodes in the cluster.
+   :type number_of_nodes: int
+   :param cores_per_node: Number of cores per node.
+   :type cores_per_node: int
+   :param total_memory_per_node: Total amount of memory per node in GB.
+   :type total_memory_per_node: int
+   :param spark_executors_cores: Number of cores per executor. Default is 5.
+   :type spark_executors_cores: int, optional
+   :param memory_fraction: Fraction of the total memory to be used per executor. Default is 0.9 (90%).
+   :type memory_fraction: float, optional
+
+   :returns: A dictionary with the calculated Spark configuration, including --executor-cores, --executor-memory, and --num-executors.
+   :rtype: dict
+
+   .. rubric:: Example
+
+   >>> config = spark_property_calculator(6, 16, 64)
+   >>> print(config)
 
 

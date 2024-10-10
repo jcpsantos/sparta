@@ -1,21 +1,21 @@
-:py:mod:`sparta`
-================
+sparta
+======
 
 .. py:module:: sparta
 
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   delete/index.rst
-   extract/index.rst
-   load/index.rst
-   logs/index.rst
-   secret/index.rst
-   transformation/index.rst
-   validator/index.rst
+   /autoapi/sparta/delete/index
+   /autoapi/sparta/extract/index
+   /autoapi/sparta/load/index
+   /autoapi/sparta/logs/index
+   /autoapi/sparta/secret/index
+   /autoapi/sparta/transformation/index
+   /autoapi/sparta/validator/index
 
 

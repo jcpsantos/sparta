@@ -1,15 +1,11 @@
-:py:mod:`sparta.transformation`
-===============================
+sparta.transformation
+=====================
 
 .. py:module:: sparta.transformation
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -20,6 +16,8 @@ Functions
    sparta.transformation.typed_columns
 
 
+Module Contents
+---------------
 
 .. py:function:: drop_duplicates(df: pyspark.sql.functions.DataFrame, col_order: str, cols_partition: List[Any]) -> pyspark.sql.functions.DataFrame
 
