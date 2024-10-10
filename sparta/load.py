@@ -1,4 +1,4 @@
-from pyspark.sql import DataFrame
+from pyspark.sql import DataFrame, SparkSession
 from sparta.logs import getlogger
 from time import time
 from datetime import timedelta
@@ -74,3 +74,19 @@ def create_hive_table(df: DataFrame, table: str, num_buckets: int, *grouping_col
     df.write.format('parquet').bucketBy(num_buckets, grouping_columns).mode("overwrite").saveAsTable(table)
     logger.info(f'Table {table} was successfully created in Hive.')
     logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")
+    
+def create_delta_table(df: DataFrame, table: str, *grouping_columns: str) -> None:
+    logger = getlogger('create_delta_table')
+    
+    start_time = time()
+    
+    if spark is None:
+        spark = SparkSession.builder.master("local[*]").getOrCreate()
+    
+    df.write.format('delta').saveAsTable(table)
+    spark.sql(f"OPTIMIZE {table} ZORDER BY ({grouping_columns})")
+    
+    logger.info(f'Table {table} was successfully created in DeltaHive.')
+    logger.info(f"Execution time: {timedelta(seconds = time()-start_time)}")
+    
+    
