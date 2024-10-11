@@ -56,6 +56,9 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
     logger = getlogger('aggregation')
 
     start_time = time()
+    
+    validator_dataframe_columns(df, [col_order], 'Column for ordering')
+    validator_dataframe_columns(df, cols_partition, 'Key columns for partitioning')
 
     win = Window.partitionBy(cols_partition).orderBy(F.col(col_order).desc())
     final_cols = cols_partition
@@ -66,18 +69,22 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
         if type(aggregations.get(k)) == list:
             for item in aggregations.get(k):
                 if item in items:
+                    validator_dataframe_columns(df, [item], 'Key columns for aggregation')
                     final_cols.append(k(F.col(item)).over(win).alias(f"{item}_{identificator}"))
                     logger.info(f'Performed {k} in column {item}')
                     identificator =+1
                 else:
+                    validator_dataframe_columns(df, [item], 'Key columns for aggregation')
                     final_cols.append(k(F.col(item)).over(win).alias(item))
                     logger.info(f'Performed {k} in column {item}')
                     items.add(item)
         elif aggregations.get(k) in items:
+            validator_dataframe_columns(df, [aggregations.get(k)], 'Key columns for aggregation')
             final_cols.append(k(F.col(aggregations.get(k))).over(win).alias(f"{aggregations.get(k)}_{identificator}"))
             logger.info(f'Performed {k} in column {aggregations.get(k)}')
             identificator =+1
         else:
+            validator_dataframe_columns(df, [aggregations.get(k)], 'Key columns for aggregation')
             final_cols.append(k(F.col(aggregations.get(k))).over(win).alias(aggregations.get(k)))
             logger.info(f'Performed {k} in column {aggregations.get(k)}')
             items.add(aggregations.get(k))
@@ -104,6 +111,8 @@ def format_timestamp(df: DataFrame, cols: List[str], timestamp: str = '"yyyy-MM-
     logger = getlogger('format_timestamp')
     
     start_time = time()
+    
+    validator_dataframe_columns(df, [cols], 'Column for transformation format timestamp')
     
     for c in cols:
         df = df.withColumn(c, F.to_timestamp(F.date_format(F.col(c), timestamp), timestamp))
