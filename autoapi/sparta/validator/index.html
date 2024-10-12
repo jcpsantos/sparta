@@ -370,13 +370,13 @@ document.write(`
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.validator.validator_dataframe_columns">
-<span class="sig-prename descclassname"><span class="pre">sparta.validator.</span></span><span class="sig-name descname"><span class="pre">validator_dataframe_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'validator_dataframe_columns'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.validator.validator_dataframe_columns" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sparta.validator.</span></span><span class="sig-name descname"><span class="pre">validator_dataframe_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'validator_dataframe_columns'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.validator.validator_dataframe_columns" title="Link to this definition">#</a></dt>
 <dd><p>Function to validate if the reported columns really exist in the dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>DataFrame</em>) – The dataframe to be checked.</p></li>
-<li><p><strong>columns</strong> (<em>list</em>) – List with the name of the columns that will be checked in the dataframe.</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List with the name of the columns that will be checked in the dataframe. Can be column strings or F.col() objects.</p></li>
 <li><p><strong>log</strong> (<em>str</em>) – Information that will be recorded in the validator log.</p></li>
 </ul>
 </dd>
@@ -417,14 +417,14 @@ and the values are the expected data types (as strings).</p></li>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_columns</span> <span class="o">=</span> <span class="p">{</span>
-<span class="go">    &#39;name&#39;: &#39;string&#39;,</span>
-<span class="go">    &#39;age&#39;: &#39;int&#39;,</span>
-<span class="go">    &#39;salary&#39;: &#39;double&#39;</span>
-<span class="go">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">validate_column_types</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">expected_columns</span><span class="p">)</span>
-</pre></div>
-</div>
+<dl class="simple">
+<dt>expected_columns = {</dt><dd><p>‘name’: ‘string’,
+‘age’: ‘int’,
+‘salary’: ‘double’</p>
+</dd>
+</dl>
+<p>}
+validate_column_types(df, expected_columns)</p>
 </dd></dl>
 
 </section>

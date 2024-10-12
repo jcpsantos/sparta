@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
@@ -18,10 +18,10 @@ dev_packages = [
     
 setup(
     name = 'pysparta',
-    version = '0.5.0',
+    version = '0.5.1',
     author = 'Juan Caio',
     author_email = 'juancaiops@gmail.com',
-    packages = ['sparta'],
+    packages = find_packages(),
     description = 'Library to help ETL using pyspark',
     long_description=long_description,
     long_description_content_type="text/markdown",

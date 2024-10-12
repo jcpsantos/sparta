@@ -28,14 +28,14 @@ Module Contents
    :rtype: str
 
 
-.. py:function:: validator_dataframe_columns(df: pyspark.sql.DataFrame, columns: list, log: str = 'validator_dataframe_columns') -> None
+.. py:function:: validator_dataframe_columns(df: pyspark.sql.DataFrame, columns: List[Any], log: str = 'validator_dataframe_columns') -> None
 
    Function to validate if the reported columns really exist in the dataframe.
 
    :param df: The dataframe to be checked.
    :type df: DataFrame
-   :param columns: List with the name of the columns that will be checked in the dataframe.
-   :type columns: list
+   :param columns: List with the name of the columns that will be checked in the dataframe. Can be column strings or F.col() objects.
+   :type columns: List[Any]
    :param log: Information that will be recorded in the validator log.
    :type log: str
 
@@ -66,11 +66,11 @@ Module Contents
 
    .. rubric:: Example
 
-   >>> expected_columns = {
+   expected_columns = {
        'name': 'string',
        'age': 'int',
        'salary': 'double'
    }
-   >>> validate_column_types(df, expected_columns)
+   validate_column_types(df, expected_columns)
 
 

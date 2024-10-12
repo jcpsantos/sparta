@@ -1,6 +1,6 @@
 from sparta.logs import getlogger
-from pyspark.sql import DataFrame
-from typing import Any, Dict
+from pyspark.sql import DataFrame, Column
+from typing import Any, Dict, List
 
 def validator_typed_columns(typecase:str) -> str:
     """Function to validate the value received in the typecase argument of the typed_columns function.
@@ -20,20 +20,38 @@ def validator_typed_columns(typecase:str) -> str:
     else:
         return "Error"
     
-def validator_dataframe_columns(df:DataFrame, columns:list, log:str='validator_dataframe_columns') -> None:
+def validator_dataframe_columns(df: DataFrame, columns: List[Any], log: str = 'validator_dataframe_columns') -> None:
     """Function to validate if the reported columns really exist in the dataframe.
 
     Args:
         df (DataFrame): The dataframe to be checked.
-        columns (list): List with the name of the columns that will be checked in the dataframe.
+        columns (List[Any]): List with the name of the columns that will be checked in the dataframe. Can be column strings or F.col() objects.
         log (str): Information that will be recorded in the validator log.
     """
     logger = getlogger(log)
-    if all(item in df.columns for item in columns):
-        logger.info(f'The columns {columns} exist in the dataframe, validation successful!')
-    else:
-        raise ValueError(f"The columns'{set(columns).difference(set(df.columns))}' do not exist in the dataframe. Please verify.")
     
+    # Convert columns to strings if they are Column objects
+    column_names = []
+    for col in columns:
+        if isinstance(col, Column):
+            # Use _name to get the column name as a string
+            col_name = col._jc.toString().split('.')[-1]  # Extract the column name
+            column_names.append(col_name)
+        else:
+            column_names.append(col)  # If it's already a string, just append it
+    
+    # Convert both column names from DataFrame and input to lowercase for case-insensitive comparison
+    df_columns_lower = [c.lower() for c in df.columns]  # All DataFrame column names to lowercase
+    column_names_lower = [c.lower() if isinstance(c, str) else c for c in column_names]  # Ensure only strings are converted to lowercase
+    
+    # Check if the columns exist in the DataFrame (case-insensitive)
+    missing_columns = set(column_names_lower).difference(set(df_columns_lower))
+    
+    if not missing_columns:
+        logger.info(f'The columns {column_names} exist in the dataframe, validation successful!')
+    else:
+        raise ValueError(f"The columns'{missing_columns}' do not exist in the dataframe. Please verify.")
+   
 def validate_column_types(df:DataFrame, expected_columns:Dict[Any, Any]) -> bool:
     """
     Validates that a DataFrame has the expected column names and data types.
@@ -57,12 +75,12 @@ def validate_column_types(df:DataFrame, expected_columns:Dict[Any, Any]) -> bool
         in case of validation failure.
 
     Example:
-        >>> expected_columns = {
+        expected_columns = {
             'name': 'string',
             'age': 'int',
             'salary': 'double'
         }
-        >>> validate_column_types(df, expected_columns)
+        validate_column_types(df, expected_columns)
     """
     logger = getlogger('validate_column_types')
     actual_columns = dict(df.dtypes)
