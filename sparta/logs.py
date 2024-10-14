@@ -32,15 +32,44 @@ def spark_property_calculator(number_of_nodes: int, cores_per_node: int, total_m
     Calculates the optimal Spark property configuration based on the number of nodes, cores per node, 
     and the total available memory per node.
 
+    This function provides the recommended Spark settings for `--executor-cores`, `--executor-memory`, 
+    and `--num-executors` based on cluster configuration.
+
     Args:
-        number_of_nodes (int): Total number of nodes in the cluster.
-        cores_per_node (int): Number of cores per node.
-        total_memory_per_node (int): Total amount of memory per node in GB.
-        spark_executors_cores (int, optional): Number of cores per executor. Default is 5.
-        memory_fraction (float, optional): Fraction of the total memory to be used per executor. Default is 0.9 (90%).
+        number_of_nodes (int): The total number of nodes in the Spark cluster.
+        cores_per_node (int): The number of CPU cores available on each node.
+        total_memory_per_node (int): The total amount of memory available on each node (in GB).
+        spark_executors_cores (int, optional): The number of cores to be allocated per Spark executor. Defaults to 5.
+        memory_fraction (float, optional): The fraction of total memory per node to be allocated to each executor. 
+                                           Defaults to 0.9 (i.e., 90%).
 
     Returns:
-        dict: A dictionary with the calculated Spark configuration, including --executor-cores, --executor-memory, and --num-executors.
+        dict: A dictionary containing the calculated Spark configuration with the following keys:
+            - `--executor-cores`: The number of cores to allocate per executor.
+            - `--executor-memory`: The amount of memory to allocate per executor (in GB).
+            - `--num-executors`: The total number of executor instances.
+
+    Raises:
+        ValueError: If any of the input parameters are invalid (e.g., non-positive values or insufficient cores per executor).
+
+    Example:
+        >>> config = spark_property_calculator(
+                number_of_nodes=10, 
+                cores_per_node=16, 
+                total_memory_per_node=128, 
+                spark_executors_cores=4, 
+                memory_fraction=0.8
+            )
+        >>> print(config)
+        {
+            '--executor-cores': 4,
+            '--executor-memory': '25G',
+            '--num-executors': 39
+        }
+
+    In this example, the function calculates the optimal Spark configuration for a cluster with 10 nodes,
+    each having 16 cores and 128 GB of memory. Each executor is allocated 4 cores, and 80% of the available memory 
+    is used per executor, resulting in 39 executors, each with 25 GB of memory and 4 cores.
     """
     
     # Input validation

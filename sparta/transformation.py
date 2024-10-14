@@ -1,6 +1,6 @@
 from typing import Any, List, Dict
 from pyspark.sql.window import Window
-from pyspark.sql import DataFrame, functions as F
+from pyspark.sql import DataFrame, Column,functions as F
 from pyspark.sql.functions import *
 from sparta.logs import getlogger
 from sparta.validator import validator_typed_columns, validator_dataframe_columns
@@ -57,6 +57,7 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
 
     start_time = time()
     
+    # Validate if col_order and cols_partition exist in the DataFrame
     validator_dataframe_columns(df, [col_order], 'Column for ordering')
     validator_dataframe_columns(df, cols_partition, 'Key columns for partitioning')
 
@@ -65,29 +66,47 @@ def aggregation(df:DataFrame, col_order: str, cols_partition: List[str], aggrega
     cols_partition = tuple(cols_partition)
     items = set()
     identificator = 1
-    for k in aggregations:
-        if type(aggregations.get(k)) == list:
-            for item in aggregations.get(k):
-                if item in items:
-                    validator_dataframe_columns(df, [item], 'Key columns for aggregation')
-                    final_cols.append(k(F.col(item)).over(win).alias(f"{item}_{identificator}"))
-                    logger.info(f'Performed {k} in column {item}')
-                    identificator =+1
+    for k, v in aggregations.items():
+        # If v is a list, iterate over the items in the list
+        if isinstance(v, list):
+            for item in v:
+                # Extract the column name if it's an F.col()
+                if isinstance(item, Column):
+                    item_name = item._jc.toString().split('.')[-1]
                 else:
-                    validator_dataframe_columns(df, [item], 'Key columns for aggregation')
-                    final_cols.append(k(F.col(item)).over(win).alias(item))
-                    logger.info(f'Performed {k} in column {item}')
-                    items.add(item)
-        elif aggregations.get(k) in items:
-            validator_dataframe_columns(df, [aggregations.get(k)], 'Key columns for aggregation')
-            final_cols.append(k(F.col(aggregations.get(k))).over(win).alias(f"{aggregations.get(k)}_{identificator}"))
-            logger.info(f'Performed {k} in column {aggregations.get(k)}')
-            identificator =+1
+                    item_name = item
+                
+                # Avoid adding Column objects directly to the set
+                if item_name in items:
+                    validator_dataframe_columns(df, [item_name], 'Key columns for aggregation')
+                    final_cols.append(k(F.col(item_name)).over(win).alias(f"{item_name}_{identificator}"))
+                    logger.info(f'Performed {k} in column {item_name}')
+                    identificator += 1
+                else:
+                    validator_dataframe_columns(df, [item_name], 'Key columns for aggregation')
+                    final_cols.append(k(F.col(item_name)).over(win).alias(item_name))
+                    logger.info(f'Performed {k} in column {item_name}')
+                    items.add(item_name)
+                    
+        # If v is not a list
         else:
-            validator_dataframe_columns(df, [aggregations.get(k)], 'Key columns for aggregation')
-            final_cols.append(k(F.col(aggregations.get(k))).over(win).alias(aggregations.get(k)))
-            logger.info(f'Performed {k} in column {aggregations.get(k)}')
-            items.add(aggregations.get(k))
+            # Extract the column name if it's an F.col()
+            if isinstance(v, Column):
+                v_name = v._jc.toString().split('.')[-1]
+            else:
+                v_name = v
+            
+            if v_name in items:
+                validator_dataframe_columns(df, [v_name], 'Key columns for aggregation')
+                final_cols.append(k(F.col(v_name)).over(win).alias(f"{v_name}_{identificator}"))
+                logger.info(f'Performed {k} in column {v_name}')
+                identificator += 1
+            else:
+                validator_dataframe_columns(df, [v_name], 'Key columns for aggregation')
+                final_cols.append(k(F.col(v_name)).over(win).alias(v_name))
+                logger.info(f'Performed {k} in column {v_name}')
+                items.add(v_name)
+
     final_cols.append(F.monotonically_increasing_id().alias('id'))
     df = df.select(final_cols)
     win_drop = Window.partitionBy(list(cols_partition)).orderBy(F.col('id').desc())
