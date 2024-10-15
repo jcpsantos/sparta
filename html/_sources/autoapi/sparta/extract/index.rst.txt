@@ -4,14 +4,6 @@ sparta.extract
 .. py:module:: sparta.extract
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   sparta.extract.spark
-
-
 Functions
 ---------
 
@@ -24,21 +16,18 @@ Functions
 Module Contents
 ---------------
 
-.. py:data:: spark
-
-.. py:function:: read_with_schema(path: str, schema: str, options: dict[str, str], format: str = 'parquet', spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
+.. py:function:: read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: pyspark.sql.SparkSession = None) -> pyspark.sql.DataFrame
 
    Function to read DataFrames with predefined schema.
-
    :param path: Path where the file is located.
    :type path: str
    :param schema: Pre-defined schema for reading.
    :type schema: str
    :param options: Configuration options for reading the DataFrame.
    :type options: dict
-   :param format: Format of the file to be read. Defaults to 'parquet'.
+   :param format: Format of the file to be read. Defaults to 'csv'.
    :type format: str, optional
-   :param spark: Spark session. Defaults to spark.
+   :param spark: Spark session. Defaults to None.
    :type spark: SparkSession, optional
 
    :returns: DataFrame read with predefined schema.
@@ -47,25 +36,38 @@ Module Contents
    .. rubric:: Example
 
    >>> schema = 'epidemiological_week LONG, date DATE, order_for_place INT, state STRING, city STRING, city_ibge_code LONG, place_type STRING, last_available_confirmed INT'
-       path = '/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv'
-       df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
+   >>> path = '/content/sample_data/covid19-e0534be4ad17411e81305aba2d9194d9.csv'
+   >>> df = read_with_schema(path, schema, {'header': 'true'}, 'csv')
 
 
-.. py:function:: read_yaml_df(path: str, spark: pyspark.sql.SparkSession = spark) -> pyspark.sql.DataFrame
+.. py:function:: read_yaml_df(path: str, spark: pyspark.sql.SparkSession = None) -> pyspark.sql.DataFrame
 
-   Function to read a yaml file as a DataFrame.
+   Reads a YAML file and converts it into a Spark DataFrame.
 
-   :param path: Path of the yaml file.
+   :param path: The path of the YAML file to read.
    :type path: str
-   :param spark: Spark session. Defaults to spark.
+   :param spark: The Spark session to use for creating the DataFrame.
+                 If not provided, a new local Spark session is created by default.
    :type spark: SparkSession, optional
 
-   :returns: Yaml file read and converted to a DataFrame.
+   :returns: A Spark DataFrame containing the data from the YAML file.
    :rtype: DataFrame
+
+   This function reads the YAML file at the specified `path`, converts it into a Python list, and then
+   loads it into a Spark DataFrame. It also logs the conversion process. The function attempts to use
+   `CSafeLoader` for faster YAML parsing but defaults to `SafeLoader` if unavailable.
 
    .. rubric:: Example
 
-   >>> path = '/content/sample_data/schema_ingestao.yaml'
-       df = read_yaml_df(path)
+   >>> from pyspark.sql import SparkSession
+   >>> spark = SparkSession.builder.appName("YAML Reader").getOrCreate()
+   >>> df = read_yaml_df("data/sample.yaml", spark)
+   >>> df.show()
+
+   In this example, the function reads a YAML file located at "data/sample.yaml" and converts it
+   into a Spark DataFrame using the provided Spark session.
+
+   :raises FileNotFoundError: If the YAML file at the specified path does not exist.
+   :raises ValueError: If the YAML file contains invalid data that cannot be converted to a DataFrame.
 
 

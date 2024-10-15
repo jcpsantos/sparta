@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.load &#8212; Sparta 0.5.0 documentation</title>
+    <title>sparta.load &#8212; Sparta 0.5.2 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+    <script src="../../../_static/documentation_options.js?v=8e576371"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/load/index';</script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.0 documentation</p>
+    <p class="title logo__title">Sparta 0.5.2 documentation</p>
   
 </a></div>
     
@@ -338,13 +338,13 @@ document.write(`
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.load.save_df_azure_dw" title="sparta.load.save_df_azure_dw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_df_azure_dw</span></code></a>(→ None)</p></td>
-<td><p>Write a PySpark DataFrame to an Azure SQL DW table.</p></td>
+<td><p>Writes a PySpark DataFrame to an Azure SQL Data Warehouse (DW) table.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sparta.load.create_hive_table" title="sparta.load.create_hive_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_hive_table</span></code></a>(→ None)</p></td>
 <td><p>Transform a DataFrame into a table in the Spark Warehouse.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.load.create_delta_table" title="sparta.load.create_delta_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_delta_table</span></code></a>(→ None)</p></td>
-<td><p>Creates a Delta table in Hive using the provided DataFrame and optimizes it using ZORDER by the given grouping columns.</p></td>
+<td><p>Creates a Delta table in Hive using the provided DataFrame and optimizes it by ZORDER using the specified grouping columns.</p></td>
 </tr>
 </tbody>
 </table>
@@ -355,22 +355,38 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.load.save_df_azure_dw">
 <span class="sig-prename descclassname"><span class="pre">sparta.load.</span></span><span class="sig-name descname"><span class="pre">save_df_azure_dw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_jdbc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'overwrite'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_str_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.load.save_df_azure_dw" title="Link to this definition">#</a></dt>
-<dd><p>Write a PySpark DataFrame to an Azure SQL DW table.</p>
+<dd><p>Writes a PySpark DataFrame to an Azure SQL Data Warehouse (DW) table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>DataFrame</em>) – The PySpark DataFrame to be written.</p></li>
-<li><p><strong>url_jdbc</strong> (<em>str</em>) – The JDBC connection URL for the Azure SQL DW.</p></li>
-<li><p><strong>tempdir</strong> (<em>str</em>) – Path for writing temporary files.</p></li>
-<li><p><strong>table</strong> (<em>str</em>) – The name of the table where the DataFrame will be written.</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – The mode for writing the table (overwrite or append). Defaults to ‘overwrite’.</p></li>
-<li><p><strong>max_str_length</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum string length for all NVARCHAR columns. Defaults to 4000.</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The PySpark DataFrame to be written to Azure SQL DW.</p></li>
+<li><p><strong>url_jdbc</strong> (<em>str</em>) – The JDBC connection URL for the Azure SQL Data Warehouse.</p></li>
+<li><p><strong>tempdir</strong> (<em>str</em>) – The path to the temporary directory used during the write operation.</p></li>
+<li><p><strong>table</strong> (<em>str</em>) – The name of the table in Azure SQL DW where the DataFrame will be written.</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – The mode for writing the data (‘overwrite’ or ‘append’). Defaults to ‘overwrite’.</p></li>
+<li><p><strong>max_str_length</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum string length for NVARCHAR columns. Defaults to 4000.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>ValueError</strong> – If the mode parameter is not ‘overwrite’ or ‘append’.</p></li>
-<li><p><strong>Exception</strong> – If the DataFrame cannot be written to the Azure SQL DW.</p></li>
+<li><p><strong>ValueError</strong> – If the <cite>mode</cite> argument is not ‘overwrite’ or ‘append’.</p></li>
+<li><p><strong>Exception</strong> – If the DataFrame cannot be written to the Azure SQL DW due to connection or write errors.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;data/sample.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_df_azure_dw</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">url_jdbc</span><span class="o">=</span><span class="s2">&quot;jdbc:sqlserver://...&quot;</span><span class="p">,</span> <span class="n">tempdir</span><span class="o">=</span><span class="s2">&quot;/mnt/tmp&quot;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;sales_data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, a DataFrame is read from a CSV file and then written to the <cite>sales_data</cite> table in Azure SQL DW
+using the JDBC connection URL provided, with an overwrite mode.</p>
+<dl class="simple">
+<dt>Logs:</dt><dd><ul class="simple">
+<li><p>Logs the start and completion of the write process.</p></li>
+<li><p>Logs the total execution time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -402,36 +418,40 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.load.create_delta_table">
 <span class="sig-prename descclassname"><span class="pre">sparta.load.</span></span><span class="sig-name descname"><span class="pre">create_delta_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.SparkSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">grouping_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.load.create_delta_table" title="Link to this definition">#</a></dt>
-<dd><p>Creates a Delta table in Hive using the provided DataFrame and optimizes it using ZORDER by the given grouping columns.</p>
+<dd><p>Creates a Delta table in Hive using the provided DataFrame and optimizes it by ZORDER using the specified grouping columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>DataFrame</em>) – The DataFrame to be written as a Delta table.</p></li>
-<li><p><strong>spark</strong> (<em>SparkSession</em>) – The Spark session used to interact with the Delta and Hive tables.
-If None, a new Spark session will be created.</p></li>
+<li><p><strong>spark</strong> (<em>SparkSession</em>) – The Spark session used for creating the Delta table and running optimization commands.</p></li>
 <li><p><strong>table</strong> (<em>str</em>) – The name of the Delta table to be created in Hive.</p></li>
 <li><p><strong>grouping_columns</strong> (<em>str</em>) – Column names by which the table should be optimized using ZORDER.
-This is a variadic argument, so one or more column names can be passed.</p></li>
+One or more column names can be passed as arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>This function does not return any values, it writes the DataFrame as a Delta table and optimizes it.</p>
+<dd class="field-even"><p>This function writes the DataFrame as a Delta table and optimizes it.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Delta Table&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;data/parquet_data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">create_delta_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">spark</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;sales_delta&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;customer_id&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, the function writes a DataFrame as a Delta table named <cite>sales_delta</cite> in Hive and optimizes it
+using ZORDER by the <cite>date</cite> and <cite>customer_id</cite> columns.</p>
 <dl class="simple">
 <dt>Logs:</dt><dd><ul class="simple">
 <li><p>Logs the successful creation of the Delta table.</p></li>
-<li><p>Logs the total execution time for the table creation and optimization process.</p></li>
+<li><p>Logs the execution time of the table creation and optimization process.</p></li>
 </ul>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create_delta_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">spark</span><span class="p">,</span><span class="s2">&quot;table_name&quot;</span><span class="p">,</span><span class="s2">&quot;pedido&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </section>

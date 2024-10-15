@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.logs &#8212; Sparta 0.5.0 documentation</title>
+    <title>sparta.logs &#8212; Sparta 0.5.2 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+    <script src="../../../_static/documentation_options.js?v=8e576371"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/logs/index';</script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.0 documentation</p>
+    <p class="title logo__title">Sparta 0.5.2 documentation</p>
   
 </a></div>
     
@@ -377,28 +377,56 @@ document.write(`
 <span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">spark_property_calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores_per_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_memory_per_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spark_executors_cores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sparta.logs.spark_property_calculator" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the optimal Spark property configuration based on the number of nodes, cores per node,
 and the total available memory per node.</p>
+<p>This function provides the recommended Spark settings for <cite>–executor-cores</cite>, <cite>–executor-memory</cite>,
+and <cite>–num-executors</cite> based on cluster configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>number_of_nodes</strong> (<em>int</em>) – Total number of nodes in the cluster.</p></li>
-<li><p><strong>cores_per_node</strong> (<em>int</em>) – Number of cores per node.</p></li>
-<li><p><strong>total_memory_per_node</strong> (<em>int</em>) – Total amount of memory per node in GB.</p></li>
-<li><p><strong>spark_executors_cores</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of cores per executor. Default is 5.</p></li>
-<li><p><strong>memory_fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – Fraction of the total memory to be used per executor. Default is 0.9 (90%).</p></li>
+<li><p><strong>number_of_nodes</strong> (<em>int</em>) – The total number of nodes in the Spark cluster.</p></li>
+<li><p><strong>cores_per_node</strong> (<em>int</em>) – The number of CPU cores available on each node.</p></li>
+<li><p><strong>total_memory_per_node</strong> (<em>int</em>) – The total amount of memory available on each node (in GB).</p></li>
+<li><p><strong>spark_executors_cores</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of cores to be allocated per Spark executor. Defaults to 5.</p></li>
+<li><p><strong>memory_fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – The fraction of total memory per node to be allocated to each executor.
+Defaults to 0.9 (i.e., 90%).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary with the calculated Spark configuration, including –executor-cores, –executor-memory, and –num-executors.</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>A dictionary containing the calculated Spark configuration with the following keys:</dt><dd><ul class="simple">
+<li><p><cite>–executor-cores</cite>: The number of cores to allocate per executor.</p></li>
+<li><p><cite>–executor-memory</cite>: The amount of memory to allocate per executor (in GB).</p></li>
+<li><p><cite>–num-executors</cite>: The total number of executor instances.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If any of the input parameters are invalid (e.g., non-positive values or insufficient cores per executor).</p>
+</dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">spark_property_calculator</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">spark_property_calculator</span><span class="p">(</span>
+<span class="go">        number_of_nodes=10,</span>
+<span class="go">        cores_per_node=16,</span>
+<span class="go">        total_memory_per_node=128,</span>
+<span class="go">        spark_executors_cores=4,</span>
+<span class="go">        memory_fraction=0.8</span>
+<span class="go">    )</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &#39;--executor-cores&#39;: 4,</span>
+<span class="go">    &#39;--executor-memory&#39;: &#39;25G&#39;,</span>
+<span class="go">    &#39;--num-executors&#39;: 39</span>
+<span class="go">}</span>
 </pre></div>
 </div>
+<p>In this example, the function calculates the optimal Spark configuration for a cluster with 10 nodes,
+each having 16 cores and 128 GB of memory. Each executor is allocated 4 cores, and 80% of the available memory
+is used per executor, resulting in 39 executors, each with 25 GB of memory and 4 cores.</p>
 </dd></dl>
 
 </section>

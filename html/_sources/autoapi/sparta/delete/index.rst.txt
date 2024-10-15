@@ -15,15 +15,27 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: delete_blob(dir_name: str, container_name: str, connect: str)
+.. py:function:: delete_blob(dir_name: str, container_name: str, connect: str) -> None
 
-   Function to delete files in a blob.
+   Function to delete all files in a specified directory within a blob storage container.
 
-   :param dir_name: Directory name.
+   :param dir_name: Directory name or blob prefix to delete files from.
    :type dir_name: str
-   :param container_name: Container name.
+   :param container_name: Name of the Azure Blob Storage container.
    :type container_name: str
-   :param connect: Blob connection string.
+   :param connect: Azure Blob Storage connection string.
    :type connect: str
+
+   This function connects to the specified blob container using the provided connection string
+   and deletes all blobs (files) that are located within the directory specified by `dir_name`.
+
+   .. rubric:: Example
+
+   >>> delete_blob("data/archive/", "my-container", "DefaultEndpointsProtocol=https;AccountName=myaccount;AccountKey=mykey;EndpointSuffix=core.windows.net")
+
+   This example deletes all blobs that start with "data/archive/" in the container "my-container".
+   It logs the deletion success or failure for each blob found.
+
+   :raises Any exception raised during deletion is logged as an error.:
 
 

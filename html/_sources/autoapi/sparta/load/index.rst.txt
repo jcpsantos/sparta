@@ -19,23 +19,37 @@ Module Contents
 
 .. py:function:: save_df_azure_dw(df: pyspark.sql.DataFrame, url_jdbc: str, tempdir: str, table: str, mode: str = 'overwrite', max_str_length: int = 4000) -> None
 
-   Write a PySpark DataFrame to an Azure SQL DW table.
+   Writes a PySpark DataFrame to an Azure SQL Data Warehouse (DW) table.
 
-   :param df: The PySpark DataFrame to be written.
+   :param df: The PySpark DataFrame to be written to Azure SQL DW.
    :type df: DataFrame
-   :param url_jdbc: The JDBC connection URL for the Azure SQL DW.
+   :param url_jdbc: The JDBC connection URL for the Azure SQL Data Warehouse.
    :type url_jdbc: str
-   :param tempdir: Path for writing temporary files.
+   :param tempdir: The path to the temporary directory used during the write operation.
    :type tempdir: str
-   :param table: The name of the table where the DataFrame will be written.
+   :param table: The name of the table in Azure SQL DW where the DataFrame will be written.
    :type table: str
-   :param mode: The mode for writing the table (overwrite or append). Defaults to 'overwrite'.
+   :param mode: The mode for writing the data ('overwrite' or 'append'). Defaults to 'overwrite'.
    :type mode: str, optional
-   :param max_str_length: The maximum string length for all NVARCHAR columns. Defaults to 4000.
+   :param max_str_length: The maximum string length for NVARCHAR columns. Defaults to 4000.
    :type max_str_length: int, optional
 
-   :raises ValueError: If the mode parameter is not 'overwrite' or 'append'.
-   :raises Exception: If the DataFrame cannot be written to the Azure SQL DW.
+   :raises ValueError: If the `mode` argument is not 'overwrite' or 'append'.
+   :raises Exception: If the DataFrame cannot be written to the Azure SQL DW due to connection or write errors.
+
+   .. rubric:: Example
+
+   >>> from pyspark.sql import SparkSession
+   >>> spark = SparkSession.builder.getOrCreate()
+   >>> df = spark.read.csv("data/sample.csv", header=True)
+   >>> save_df_azure_dw(df, url_jdbc="jdbc:sqlserver://...", tempdir="/mnt/tmp", table="sales_data")
+
+   In this example, a DataFrame is read from a CSV file and then written to the `sales_data` table in Azure SQL DW
+   using the JDBC connection URL provided, with an overwrite mode.
+
+   Logs:
+       - Logs the start and completion of the write process.
+       - Logs the total execution time.
 
 
 .. py:function:: create_hive_table(df: pyspark.sql.DataFrame, table: str, num_buckets: int, *grouping_columns: str) -> None
@@ -60,28 +74,33 @@ Module Contents
 
 .. py:function:: create_delta_table(df: pyspark.sql.DataFrame, spark: pyspark.sql.SparkSession, table: str, *grouping_columns: str) -> None
 
-   Creates a Delta table in Hive using the provided DataFrame and optimizes it using ZORDER by the given grouping columns.
+   Creates a Delta table in Hive using the provided DataFrame and optimizes it by ZORDER using the specified grouping columns.
 
    :param df: The DataFrame to be written as a Delta table.
    :type df: DataFrame
-   :param spark: The Spark session used to interact with the Delta and Hive tables.
-                 If None, a new Spark session will be created.
+   :param spark: The Spark session used for creating the Delta table and running optimization commands.
    :type spark: SparkSession
    :param table: The name of the Delta table to be created in Hive.
    :type table: str
    :param grouping_columns: Column names by which the table should be optimized using ZORDER.
-                            This is a variadic argument, so one or more column names can be passed.
+                            One or more column names can be passed as arguments.
    :type grouping_columns: str
 
-   :returns: This function does not return any values, it writes the DataFrame as a Delta table and optimizes it.
+   :returns: This function writes the DataFrame as a Delta table and optimizes it.
    :rtype: None
-
-   Logs:
-       - Logs the successful creation of the Delta table.
-       - Logs the total execution time for the table creation and optimization process.
 
    .. rubric:: Example
 
-   >>> create_delta_table(df, spark,"table_name","pedido", "status")
+   >>> from pyspark.sql import SparkSession
+   >>> spark = SparkSession.builder.appName("Delta Table").getOrCreate()
+   >>> df = spark.read.parquet("data/parquet_data")
+   >>> create_delta_table(df, spark, table="sales_delta", "date", "customer_id")
+
+   In this example, the function writes a DataFrame as a Delta table named `sales_delta` in Hive and optimizes it
+   using ZORDER by the `date` and `customer_id` columns.
+
+   Logs:
+       - Logs the successful creation of the Delta table.
+       - Logs the execution time of the table creation and optimization process.
 
 

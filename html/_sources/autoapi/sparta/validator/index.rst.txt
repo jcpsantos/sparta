@@ -19,25 +19,58 @@ Module Contents
 
 .. py:function:: validator_typed_columns(typecase: str) -> str
 
-   Function to validate the value received in the typecase argument of the typed_columns function.
+   Validates the `typecase` argument to check if it is 'upper' or 'lower',
+   which are accepted values for converting column case in a DataFrame.
 
-   :param typecase: The value of the typecase argument received in the typed_columns function.
+   :param typecase: The case type to be validated. Accepted values are 'upper' or 'lower'.
    :type typecase: str
 
-   :returns: Validation indicating if the argument is ok or if it contains an error.
+   :returns:
+
+             'Ok' if the validation is successful. If the value is valid but improperly cased,
+                  a warning is logged and 'Ok' is returned. If invalid, 'Error' is returned.
    :rtype: str
+
+   .. rubric:: Example
+
+   >>> validator_typed_columns('upper')
+   'Ok'
+
+   >>> validator_typed_columns('UPPER')
+   # Logs a warning about case sensitivity
+   'Ok'
+
+   >>> validator_typed_columns('capitalize')
+   'Error'
 
 
 .. py:function:: validator_dataframe_columns(df: pyspark.sql.DataFrame, columns: List[Any], log: str = 'validator_dataframe_columns') -> None
 
-   Function to validate if the reported columns really exist in the dataframe.
+   Validates whether the specified columns exist in the given DataFrame.
+   It supports both string column names and PySpark's `F.col()` objects.
 
-   :param df: The dataframe to be checked.
+   :param df: The DataFrame in which the columns will be checked.
    :type df: DataFrame
-   :param columns: List with the name of the columns that will be checked in the dataframe. Can be column strings or F.col() objects.
+   :param columns: A list of column names to be validated. Can be strings or `F.col()` objects.
    :type columns: List[Any]
-   :param log: Information that will be recorded in the validator log.
-   :type log: str
+   :param log: The logger identifier. Defaults to 'validator_dataframe_columns'.
+   :type log: str, optional
+
+   :raises ValueError: If one or more of the specified columns do not exist in the DataFrame.
+   :raises TypeError: If an invalid column type (neither string nor `F.col()` object) is provided.
+
+   .. rubric:: Example
+
+   >>> from pyspark.sql import functions as F
+   >>> df = spark.createDataFrame([(1, 'a'), (2, 'b')], ['id', 'value'])
+   >>> validator_dataframe_columns(df, ['id', 'value'])
+   # Logs a success message since both columns exist.
+
+   >>> validator_dataframe_columns(df, [F.col('id'), 'value'])
+   # Works with both string and F.col objects.
+
+   >>> validator_dataframe_columns(df, ['non_existing_col'])
+   # Raises a ValueError: "The columns {'non_existing_col'} do not exist in the dataframe."
 
 
 .. py:function:: validate_column_types(df: pyspark.sql.DataFrame, expected_columns: Dict[Any, Any]) -> bool
@@ -66,11 +99,11 @@ Module Contents
 
    .. rubric:: Example
 
-   expected_columns = {
+   >>> expected_columns = {
        'name': 'string',
        'age': 'int',
        'salary': 'double'
    }
-   validate_column_types(df, expected_columns)
+   >>> validate_column_types(df, expected_columns)
 
 
