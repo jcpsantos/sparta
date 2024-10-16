@@ -41,14 +41,32 @@ def read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, for
 
 def read_yaml_df(path: str, spark: SparkSession = None) -> DataFrame:
     """
-    Read a YAML file as a Spark DataFrame.
+    Reads a YAML file and converts it into a Spark DataFrame.
 
     Args:
-        path (str): Path of the YAML file.
-        spark (SparkSession, optional): Spark session to use. Defaults to spark.
+        path (str): The path of the YAML file to read.
+        spark (SparkSession, optional): The Spark session to use for creating the DataFrame. 
+                                        If not provided, a new local Spark session is created by default.
 
     Returns:
-        DataFrame: YAML file converted to a DataFrame.
+        DataFrame: A Spark DataFrame containing the data from the YAML file.
+
+    This function reads the YAML file at the specified `path`, converts it into a Python list, and then
+    loads it into a Spark DataFrame. It also logs the conversion process. The function attempts to use 
+    `CSafeLoader` for faster YAML parsing but defaults to `SafeLoader` if unavailable.
+
+    Example:
+        >>> from pyspark.sql import SparkSession
+        >>> spark = SparkSession.builder.appName("YAML Reader").getOrCreate()
+        >>> df = read_yaml_df("data/sample.yaml", spark)
+        >>> df.show()
+
+    In this example, the function reads a YAML file located at "data/sample.yaml" and converts it 
+    into a Spark DataFrame using the provided Spark session.
+
+    Raises:
+        FileNotFoundError: If the YAML file at the specified path does not exist.
+        ValueError: If the YAML file contains invalid data that cannot be converted to a DataFrame.
     """
     
     if spark is None:
