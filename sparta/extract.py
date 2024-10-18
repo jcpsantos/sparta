@@ -7,12 +7,14 @@ from pyspark.sql.types import _parse_datatype_string
 
 def read_with_schema(path: str, schema: str, options: Dict[Any, Any] = None, format: str = 'csv', spark: SparkSession = None) -> DataFrame:
     """Function to read DataFrames with predefined schema.
+    
     Args:
         path (str): Path where the file is located.
         schema (str): Pre-defined schema for reading.
         options (dict): Configuration options for reading the DataFrame.
         format (str, optional): Format of the file to be read. Defaults to 'csv'.
         spark (SparkSession, optional): Spark session. Defaults to None.
+        
     Returns:
         DataFrame: DataFrame read with predefined schema.
 
