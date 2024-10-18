@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.validator &#8212; Sparta 0.5.2 documentation</title>
+    <title>sparta.validator &#8212; Sparta 0.5.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=8e576371"></script>
+    <script src="../../../_static/documentation_options.js?v=2a2fe768"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/validator/index';</script>
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.2 documentation</p>
+    <p class="title logo__title">Sparta 0.5.3 documentation</p>
   
 </a></div>
     
@@ -345,6 +345,9 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="#sparta.validator.validate_column_types" title="sparta.validator.validate_column_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_column_types</span></code></a>(→ bool)</p></td>
 <td><p>Validates that a DataFrame has the expected column names and data types.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sparta.validator.compare_dataframes" title="sparta.validator.compare_dataframes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_dataframes</span></code></a>(→ bool)</p></td>
+<td><p>Compares two PySpark DataFrames to check if they are different in terms of schema and content.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -468,6 +471,17 @@ and the values are the expected data types (as strings).</p></li>
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.validator.compare_dataframes">
+<span class="sig-prename descclassname"><span class="pre">sparta.validator.</span></span><span class="sig-name descname"><span class="pre">compare_dataframes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#sparta.validator.compare_dataframes" title="Link to this definition">#</a></dt>
+<dd><p>Compares two PySpark DataFrames to check if they are different in terms of schema and content.</p>
+<p>Args:
+- df1: The first DataFrame.
+- df2: The second DataFrame.</p>
+<p>Return:
+- bool: False if the DataFrames are different, True otherwise.</p>
+</dd></dl>
+
 </section>
 </section>
 
@@ -513,6 +527,7 @@ and the values are the expected data types (as strings).</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.validator_typed_columns"><code class="docutils literal notranslate"><span class="pre">validator_typed_columns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.validator_dataframe_columns"><code class="docutils literal notranslate"><span class="pre">validator_dataframe_columns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.validate_column_types"><code class="docutils literal notranslate"><span class="pre">validate_column_types()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.compare_dataframes"><code class="docutils literal notranslate"><span class="pre">compare_dataframes()</span></code></a></li>
 </ul>
 </li>
 </ul>

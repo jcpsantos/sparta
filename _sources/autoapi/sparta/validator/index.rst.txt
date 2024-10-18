@@ -12,6 +12,7 @@ Functions
    sparta.validator.validator_typed_columns
    sparta.validator.validator_dataframe_columns
    sparta.validator.validate_column_types
+   sparta.validator.compare_dataframes
 
 
 Module Contents
@@ -105,5 +106,17 @@ Module Contents
        'salary': 'double'
    }
    >>> validate_column_types(df, expected_columns)
+
+
+.. py:function:: compare_dataframes(df1: pyspark.sql.DataFrame, df2: pyspark.sql.DataFrame) -> bool
+
+   Compares two PySpark DataFrames to check if they are different in terms of schema and content.
+
+   Args:
+   - df1: The first DataFrame.
+   - df2: The second DataFrame.
+
+   Return:
+   - bool: False if the DataFrames are different, True otherwise.
 
 

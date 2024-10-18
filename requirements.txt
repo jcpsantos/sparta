@@ -5,3 +5,4 @@ pyspark==3.2.1
 pytest==7.1.2
 PyYAML==6.0
 smart-open==6.0.0
+delta-spark==3.2.1
