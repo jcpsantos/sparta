@@ -11,6 +11,8 @@ Functions
 
    sparta.logs.getlogger
    sparta.logs.spark_property_calculator
+   sparta.logs.send_error_to_teams
+   sparta.logs.handle_exceptions
 
 
 Module Contents
@@ -82,5 +84,31 @@ Module Contents
    In this example, the function calculates the optimal Spark configuration for a cluster with 10 nodes,
    each having 16 cores and 128 GB of memory. Each executor is allocated 4 cores, and 80% of the available memory
    is used per executor, resulting in 39 executors, each with 25 GB of memory and 4 cores.
+
+
+.. py:function:: send_error_to_teams(error_message: str, webhook_url: str) -> None
+
+   Function to send error messages to Microsoft Teams via webhook.
+
+   Args:
+   error_message (str): The error message to be sent.
+   webhook_url (str): The webhook URL for Microsoft Teams.
+
+   Example:
+   >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
+
+
+.. py:function:: handle_exceptions(process: str, notebook_url: str, webhook_url: str) -> Any
+
+   Context manager for handling exceptions and sending them to Microsoft Teams.
+
+   Args:
+   process (str): The process that is being executed.
+   notebook_url (str): The URL of the notebook where the process is running.
+   webhook_url (str): The webhook URL for Microsoft Teams.
+
+   Example:
+   >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
+   >>>     # Your code here
 
 

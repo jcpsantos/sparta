@@ -1,7 +1,11 @@
 import logging
 import sys
 import math
+import requests
+import json
+import traceback
 from typing import Any, Dict
+from contextlib import contextmanager
 
 def getlogger(name:str, level:logging=logging.INFO) -> logging:
     """Function that generates custom logs.
@@ -96,3 +100,50 @@ def spark_property_calculator(number_of_nodes: int, cores_per_node: int, total_m
     }
 
     return result
+
+# Function to send error messages to Microsoft Teams via webhook
+def send_error_to_teams(error_message:str, webhook_url:str) -> None:
+    """
+    Function to send error messages to Microsoft Teams via webhook.
+
+    Args:
+    error_message (str): The error message to be sent.
+    webhook_url (str): The webhook URL for Microsoft Teams.
+
+    Example:
+    >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
+    """
+    logger = getlogger('handle_exceptions')
+    message = {
+        "text": f"{error_message}"
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    response = requests.post(webhook_url, data=json.dumps(message), headers=headers)
+    if response.status_code != 200:
+        logger.error(f"Failed to send message to Teams: {response.status_code}, {response.text}")
+        
+# Context manager for handling exceptions and sending them to Teams
+@contextmanager
+def handle_exceptions(process:str, notebook_url: str, webhook_url:str) -> Any:
+    """
+    Context manager for handling exceptions and sending them to Microsoft Teams.
+
+    Args:
+    process (str): The process that is being executed.
+    notebook_url (str): The URL of the notebook where the process is running.
+    webhook_url (str): The webhook URL for Microsoft Teams.
+
+    Example:
+    >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
+    >>>     # Your code here
+    """
+    logger = getlogger('handle_exceptions')
+    try:
+        yield
+    except Exception as e:
+        error_message = f"Exception: {type(e).__name__}, {str(e)}\nTraceback: {traceback.format_exc()}"
+        logger.error(f"Error occurred: {error_message}")
+        send_error_to_teams(f'[ERROR] - Process {process} - Notebook: {notebook_url} - ERROR -> An error occurred: {error_message}', webhook_url)
+        raise  # Re-raise the exception to stop execution

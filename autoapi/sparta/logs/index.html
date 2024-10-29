@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.logs &#8212; Sparta 0.5.3 documentation</title>
+    <title>sparta.logs &#8212; Sparta 0.5.4 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/logs/index';</script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.3 documentation</p>
+    <p class="title logo__title">Sparta 0.5.4 documentation</p>
   
 </a></div>
     
@@ -343,6 +343,12 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#sparta.logs.spark_property_calculator" title="sparta.logs.spark_property_calculator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spark_property_calculator</span></code></a>(→ Dict[str, Any])</p></td>
 <td><p>Calculates the optimal Spark property configuration based on the number of nodes, cores per node,</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.logs.send_error_to_teams" title="sparta.logs.send_error_to_teams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_error_to_teams</span></code></a>(→ None)</p></td>
+<td><p>Function to send error messages to Microsoft Teams via webhook.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sparta.logs.handle_exceptions" title="sparta.logs.handle_exceptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_exceptions</span></code></a>(→ Any)</p></td>
+<td><p>Context manager for handling exceptions and sending them to Microsoft Teams.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -429,6 +435,30 @@ each having 16 cores and 128 GB of memory. Each executor is allocated 4 cores, a
 is used per executor, resulting in 39 executors, each with 25 GB of memory and 4 cores.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.logs.send_error_to_teams">
+<span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">send_error_to_teams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.logs.send_error_to_teams" title="Link to this definition">#</a></dt>
+<dd><p>Function to send error messages to Microsoft Teams via webhook.</p>
+<p>Args:
+error_message (str): The error message to be sent.
+webhook_url (str): The webhook URL for Microsoft Teams.</p>
+<p>Example:
+&gt;&gt;&gt; send_error_to_teams(‘An error occurred’, ‘<a class="reference external" href="https://webhook_url.com">https://webhook_url.com</a>’)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.logs.handle_exceptions">
+<span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">handle_exceptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#sparta.logs.handle_exceptions" title="Link to this definition">#</a></dt>
+<dd><p>Context manager for handling exceptions and sending them to Microsoft Teams.</p>
+<p>Args:
+process (str): The process that is being executed.
+notebook_url (str): The URL of the notebook where the process is running.
+webhook_url (str): The webhook URL for Microsoft Teams.</p>
+<p>Example:
+&gt;&gt;&gt; with handle_exceptions(‘Process Name’, ‘<a class="reference external" href="https://notebook_url.com">https://notebook_url.com</a>’, ‘<a class="reference external" href="https://webhook_url.com">https://webhook_url.com</a>’):
+&gt;&gt;&gt;     # Your code here</p>
+</dd></dl>
+
 </section>
 </section>
 
@@ -482,6 +512,8 @@ is used per executor, resulting in 39 executors, each with 25 GB of memory and 4
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.getlogger"><code class="docutils literal notranslate"><span class="pre">getlogger()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.spark_property_calculator"><code class="docutils literal notranslate"><span class="pre">spark_property_calculator()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.send_error_to_teams"><code class="docutils literal notranslate"><span class="pre">send_error_to_teams()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.handle_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_exceptions()</span></code></a></li>
 </ul>
 </li>
 </ul>

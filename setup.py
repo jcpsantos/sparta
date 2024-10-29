@@ -18,7 +18,7 @@ dev_packages = [
     
 setup(
     name = 'pysparta',
-    version = '0.5.3',
+    version = '0.5.4',
     author = 'Juan Caio',
     author_email = 'juancaiops@gmail.com',
     packages = find_packages(),
