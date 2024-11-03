@@ -132,3 +132,35 @@ def validate_column_types(df:DataFrame, expected_columns:Dict[Any, Any]) -> bool
             logger.error(f"Column {column} has type {actual_columns[column]} but expected {dtype}.")
             return False
     return True
+
+def compare_dataframes(df1: DataFrame, df2: DataFrame) -> bool:
+    """
+    Compares two PySpark DataFrames to check if they are different in terms of schema and content.
+    
+    Args:
+    - df1: The first DataFrame.
+    - df2: The second DataFrame.
+    
+    Return:
+    - bool: False if the DataFrames are different, True otherwise.
+    """
+    
+    logger = getlogger('compare_dataframes')
+    # 1. Compare the schemas (columns and data types)
+    if df1.schema != df2.schema:
+        logger.info("The DataFrames have different schemas.")
+        return False
+
+    # 2. Compare the content row by row (independent of ordering)
+    df1_sorted = df1.sort(df1.columns)
+    df2_sorted = df2.sort(df2.columns)
+    
+    # Compare content row by row
+    diff_count = df1_sorted.subtract(df2_sorted).count() + df2_sorted.subtract(df1_sorted).count()
+    
+    if diff_count > 0:
+        logger.info(f"The DataFrames have {diff_count} differences in content.")
+        return False
+
+    logger.info("The DataFrames are identical.")
+    return True

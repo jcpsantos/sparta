@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent.resolve()
 
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
-required = ["azure-storage-blob>=12.12.0", "boto3>=1.20.24", "chispa>=0.9.2", "pyspark>=3.2.1", "pytest>=3.2.2", "PyYAML>=6.0", "smart-open>=6.0.0"]
+required = ["azure-storage-blob>=12.12.0", "boto3>=1.20.24", "chispa>=0.9.2", "pyspark>=3.2.1", "pytest>=3.2.2", "PyYAML>=6.0", "smart-open>=6.0.0", "delta-spark>=3.2.1"]
 
 dev_packages = [
     "pytest>=7.0.0",
@@ -18,7 +18,7 @@ dev_packages = [
     
 setup(
     name = 'pysparta',
-    version = '0.5.2',
+    version = '0.5.4',
     author = 'Juan Caio',
     author_email = 'juancaiops@gmail.com',
     packages = find_packages(),
