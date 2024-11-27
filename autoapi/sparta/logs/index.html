@@ -439,24 +439,38 @@ is used per executor, resulting in 39 executors, each with 25 GB of memory and 4
 <dt class="sig sig-object py" id="sparta.logs.send_error_to_teams">
 <span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">send_error_to_teams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sparta.logs.send_error_to_teams" title="Link to this definition">#</a></dt>
 <dd><p>Function to send error messages to Microsoft Teams via webhook.</p>
-<p>Args:
-error_message (str): The error message to be sent.
-webhook_url (str): The webhook URL for Microsoft Teams.</p>
-<p>Example:
-&gt;&gt;&gt; send_error_to_teams(‘An error occurred’, ‘<a class="reference external" href="https://webhook_url.com">https://webhook_url.com</a>’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_message</strong> (<em>str</em>) – The error message to be sent.</p></li>
+<li><p><strong>webhook_url</strong> (<em>str</em>) – The webhook URL for Microsoft Teams.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">send_error_to_teams</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="s1">&#39;https://webhook_url.com&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sparta.logs.handle_exceptions">
 <span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">handle_exceptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#sparta.logs.handle_exceptions" title="Link to this definition">#</a></dt>
 <dd><p>Context manager for handling exceptions and sending them to Microsoft Teams.</p>
-<p>Args:
-process (str): The process that is being executed.
-notebook_url (str): The URL of the notebook where the process is running.
-webhook_url (str): The webhook URL for Microsoft Teams.</p>
-<p>Example:
-&gt;&gt;&gt; with handle_exceptions(‘Process Name’, ‘<a class="reference external" href="https://notebook_url.com">https://notebook_url.com</a>’, ‘<a class="reference external" href="https://webhook_url.com">https://webhook_url.com</a>’):
-&gt;&gt;&gt;     # Your code here</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>process</strong> (<em>str</em>) – The process that is being executed.</p></li>
+<li><p><strong>notebook_url</strong> (<em>str</em>) – The URL of the notebook where the process is running.</p></li>
+<li><p><strong>webhook_url</strong> (<em>str</em>) – The webhook URL for Microsoft Teams.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">handle_exceptions</span><span class="p">(</span><span class="s1">&#39;Process Name&#39;</span><span class="p">,</span> <span class="s1">&#39;https://notebook_url.com&#39;</span><span class="p">,</span> <span class="s1">&#39;https://webhook_url.com&#39;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Your code here</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

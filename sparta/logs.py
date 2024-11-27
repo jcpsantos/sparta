@@ -107,11 +107,11 @@ def send_error_to_teams(error_message:str, webhook_url:str) -> None:
     Function to send error messages to Microsoft Teams via webhook.
 
     Args:
-    error_message (str): The error message to be sent.
-    webhook_url (str): The webhook URL for Microsoft Teams.
+        error_message (str): The error message to be sent.
+        webhook_url (str): The webhook URL for Microsoft Teams.
 
     Example:
-    >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
+        >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
     """
     logger = getlogger('handle_exceptions')
     message = {
@@ -131,13 +131,13 @@ def handle_exceptions(process:str, notebook_url: str, webhook_url:str) -> Any:
     Context manager for handling exceptions and sending them to Microsoft Teams.
 
     Args:
-    process (str): The process that is being executed.
-    notebook_url (str): The URL of the notebook where the process is running.
-    webhook_url (str): The webhook URL for Microsoft Teams.
+        process (str): The process that is being executed.
+        notebook_url (str): The URL of the notebook where the process is running.
+        webhook_url (str): The webhook URL for Microsoft Teams.
 
     Example:
-    >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
-    >>>     # Your code here
+        >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
+        >>>     # Your code here
     """
     logger = getlogger('handle_exceptions')
     try:

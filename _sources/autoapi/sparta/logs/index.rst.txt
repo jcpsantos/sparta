@@ -90,11 +90,13 @@ Module Contents
 
    Function to send error messages to Microsoft Teams via webhook.
 
-   Args:
-   error_message (str): The error message to be sent.
-   webhook_url (str): The webhook URL for Microsoft Teams.
+   :param error_message: The error message to be sent.
+   :type error_message: str
+   :param webhook_url: The webhook URL for Microsoft Teams.
+   :type webhook_url: str
 
-   Example:
+   .. rubric:: Example
+
    >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
 
 
@@ -102,12 +104,15 @@ Module Contents
 
    Context manager for handling exceptions and sending them to Microsoft Teams.
 
-   Args:
-   process (str): The process that is being executed.
-   notebook_url (str): The URL of the notebook where the process is running.
-   webhook_url (str): The webhook URL for Microsoft Teams.
+   :param process: The process that is being executed.
+   :type process: str
+   :param notebook_url: The URL of the notebook where the process is running.
+   :type notebook_url: str
+   :param webhook_url: The webhook URL for Microsoft Teams.
+   :type webhook_url: str
 
-   Example:
+   .. rubric:: Example
+
    >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
    >>>     # Your code here
 
