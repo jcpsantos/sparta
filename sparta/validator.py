@@ -1,5 +1,7 @@
-from sparta.logs import getlogger
+from sparta.logs import getlogger, send_error_to_teams
 from pyspark.sql import DataFrame, Column
+from pyspark.sql.functions import col, max
+from datetime import datetime, timedelta
 from typing import Any, Dict, List
 
 def validator_typed_columns(typecase:str) -> str:
@@ -164,3 +166,74 @@ def compare_dataframes(df1: DataFrame, df2: DataFrame) -> bool:
 
     logger.info("The DataFrames are identical.")
     return True
+
+def monitoring_datetime(df, name, column_name, final_hour, webhook_url):
+  """
+    Monitors the most recent timestamp in a specified column of a DataFrame 
+    and sends an alert via Microsoft Teams if the data is outdated.
+
+    This function calculates the maximum value of a timestamp column in a given DataFrame,
+    compares it with a threshold (current time minus a specified number of hours), and sends
+    a notification to Microsoft Teams if the data has not been updated within the threshold.
+
+    Args:
+        df (pyspark.sql.DataFrame): The input DataFrame containing the data to monitor.
+        name (str): The name of the process being monitored, used in the alert message.
+        column_name (str): The name of the timestamp column to monitor.
+        final_hour (int): The threshold in hours; data older than this will trigger an alert.
+        webhook_url (str): The Microsoft Teams webhook URL for sending alerts.
+
+    Raises:
+        ValueError: If the specified column does not exist in the DataFrame.
+
+    Side Effects:
+        - Sends a notification to Microsoft Teams using the provided webhook URL.
+        - Logs an informational message if an alert is triggered.
+
+    Example:
+        >>> from pyspark.sql import SparkSession
+        >>> from pyspark.sql.functions import lit
+        >>> spark = SparkSession.builder.getOrCreate()
+        >>> df = spark.createDataFrame([(1, "2024-12-01 10:00:00")], ["id", "timestamp"])
+        >>> df = df.withColumn("timestamp", lit("2024-12-01 10:00:00").cast("timestamp"))
+        >>> monitoring_datetime(df, "MyProcess", "timestamp", 24, "https://example.webhook.url")
+  """
+  logger = getlogger('monitoring_datetime')
+  validator_dataframe_columns(df, [column_name])
+  max_value = df.agg(max(col(column_name).cast('timestamp')).alias("max_value")).collect()[0]["max_value"]
+  data = (datetime.now() - timedelta(hours=final_hour))
+  if data > max_value:
+    message = f'Process {name} has not updated in the last {final_hour} hours. Last update: {max_value}.'
+    message_json = {
+            "type": "message",
+            "attachments": [
+                {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                    {
+                        "type": "TextBlock",
+                        "text": "📊 *Monitoring Notification*",
+                        "weight": "Bolder",
+                        "size": "Medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Job Monitoring",
+                        "weight": "Bolder"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": message,
+                        "wrap": True
+                    }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "version": "1.4"
+                }
+                }
+            ]
+            }
+    send_error_to_teams(message_json, webhook_url)
+    logger.info(message)
