@@ -140,11 +140,11 @@ def compare_dataframes(df1: DataFrame, df2: DataFrame) -> bool:
     Compares two PySpark DataFrames to check if they are different in terms of schema and content.
     
     Args:
-    - df1: The first DataFrame.
-    - df2: The second DataFrame.
+        - df1: The first DataFrame.
+        - df2: The second DataFrame.
     
     Return:
-    - bool: False if the DataFrames are different, True otherwise.
+        - bool: False if the DataFrames are different, True otherwise.
     """
     
     logger = getlogger('compare_dataframes')
