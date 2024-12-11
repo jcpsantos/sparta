@@ -13,6 +13,7 @@ Functions
    sparta.validator.validator_dataframe_columns
    sparta.validator.validate_column_types
    sparta.validator.compare_dataframes
+   sparta.validator.monitoring_datetime
 
 
 Module Contents
@@ -118,5 +119,41 @@ Module Contents
 
    Return:
    - bool: False if the DataFrames are different, True otherwise.
+
+
+.. py:function:: monitoring_datetime(df, name, column_name, final_hour, webhook_url)
+
+   Monitors the most recent timestamp in a specified column of a DataFrame
+   and sends an alert via Microsoft Teams if the data is outdated.
+
+   This function calculates the maximum value of a timestamp column in a given DataFrame,
+   compares it with a threshold (current time minus a specified number of hours), and sends
+   a notification to Microsoft Teams if the data has not been updated within the threshold.
+
+   :param df: The input DataFrame containing the data to monitor.
+   :type df: pyspark.sql.DataFrame
+   :param name: The name of the process being monitored, used in the alert message.
+   :type name: str
+   :param column_name: The name of the timestamp column to monitor.
+   :type column_name: str
+   :param final_hour: The threshold in hours; data older than this will trigger an alert.
+   :type final_hour: int
+   :param webhook_url: The Microsoft Teams webhook URL for sending alerts.
+   :type webhook_url: str
+
+   :raises ValueError: If the specified column does not exist in the DataFrame.
+
+   Side Effects:
+       - Sends a notification to Microsoft Teams using the provided webhook URL.
+       - Logs an informational message if an alert is triggered.
+
+   .. rubric:: Example
+
+   >>> from pyspark.sql import SparkSession
+   >>> from pyspark.sql.functions import lit
+   >>> spark = SparkSession.builder.getOrCreate()
+   >>> df = spark.createDataFrame([(1, "2024-12-01 10:00:00")], ["id", "timestamp"])
+   >>> df = df.withColumn("timestamp", lit("2024-12-01 10:00:00").cast("timestamp"))
+   >>> monitoring_datetime(df, "MyProcess", "timestamp", 24, "https://example.webhook.url")
 
 

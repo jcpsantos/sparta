@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.validator &#8212; Sparta 0.5.4 documentation</title>
+    <title>sparta.validator &#8212; Sparta 0.5.5 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../_static/documentation_options.js?v=45def3bc"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/validator/index';</script>
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.4 documentation</p>
+    <p class="title logo__title">Sparta 0.5.5 documentation</p>
   
 </a></div>
     
@@ -348,6 +348,9 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#sparta.validator.compare_dataframes" title="sparta.validator.compare_dataframes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_dataframes</span></code></a>(→ bool)</p></td>
 <td><p>Compares two PySpark DataFrames to check if they are different in terms of schema and content.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.validator.monitoring_datetime" title="sparta.validator.monitoring_datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">monitoring_datetime</span></code></a>(df, name, column_name, final_hour, ...)</p></td>
+<td><p>Monitors the most recent timestamp in a specified column of a DataFrame</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -482,6 +485,46 @@ and the values are the expected data types (as strings).</p></li>
 - bool: False if the DataFrames are different, True otherwise.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.validator.monitoring_datetime">
+<span class="sig-prename descclassname"><span class="pre">sparta.validator.</span></span><span class="sig-name descname"><span class="pre">monitoring_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_hour</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sparta.validator.monitoring_datetime" title="Link to this definition">#</a></dt>
+<dd><p>Monitors the most recent timestamp in a specified column of a DataFrame
+and sends an alert via Microsoft Teams if the data is outdated.</p>
+<p>This function calculates the maximum value of a timestamp column in a given DataFrame,
+compares it with a threshold (current time minus a specified number of hours), and sends
+a notification to Microsoft Teams if the data has not been updated within the threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pyspark.sql.DataFrame</em>) – The input DataFrame containing the data to monitor.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the process being monitored, used in the alert message.</p></li>
+<li><p><strong>column_name</strong> (<em>str</em>) – The name of the timestamp column to monitor.</p></li>
+<li><p><strong>final_hour</strong> (<em>int</em>) – The threshold in hours; data older than this will trigger an alert.</p></li>
+<li><p><strong>webhook_url</strong> (<em>str</em>) – The Microsoft Teams webhook URL for sending alerts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the specified column does not exist in the DataFrame.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Side Effects:</dt><dd><ul class="simple">
+<li><p>Sends a notification to Microsoft Teams using the provided webhook URL.</p></li>
+<li><p>Logs an informational message if an alert is triggered.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">lit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;2024-12-01 10:00:00&quot;</span><span class="p">)],</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="n">lit</span><span class="p">(</span><span class="s2">&quot;2024-12-01 10:00:00&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">monitoring_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;MyProcess&quot;</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;https://example.webhook.url&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 </section>
 
@@ -528,6 +571,7 @@ and the values are the expected data types (as strings).</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.validator_dataframe_columns"><code class="docutils literal notranslate"><span class="pre">validator_dataframe_columns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.validate_column_types"><code class="docutils literal notranslate"><span class="pre">validate_column_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.compare_dataframes"><code class="docutils literal notranslate"><span class="pre">compare_dataframes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.validator.monitoring_datetime"><code class="docutils literal notranslate"><span class="pre">monitoring_datetime()</span></code></a></li>
 </ul>
 </li>
 </ul>

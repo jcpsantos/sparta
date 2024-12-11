@@ -102,42 +102,87 @@ def spark_property_calculator(number_of_nodes: int, cores_per_node: int, total_m
     return result
 
 # Function to send error messages to Microsoft Teams via webhook
-def send_error_to_teams(error_message:str, webhook_url:str) -> None:
+def send_error_to_teams(error_message:json, webhook_url:str) -> None:
     """
-    Function to send error messages to Microsoft Teams via webhook.
+    Sends error messages to a Microsoft Teams channel using a webhook.
+
+    This function formats and sends a given error message to a specified Microsoft Teams channel 
+    through its webhook URL. It logs the response from the Teams API and handles unsuccessful requests 
+    by logging an error message.
 
     Args:
-        error_message (str): The error message to be sent.
-        webhook_url (str): The webhook URL for Microsoft Teams.
+        error_message (json): A JSON object containing the error message payload to be sent. 
+                              Ensure it follows the correct schema for Microsoft Teams messages.
+        webhook_url (str): The webhook URL for the target Microsoft Teams channel.
 
     Example:
-        >>> send_error_to_teams('An error occurred', 'https://webhook_url.com')
+        >>> error_payload = {
+        >>>     "text": "🚨 An error occurred during the process.",
+        >>>     "attachments": [
+        >>>         {
+        >>>             "contentType": "application/vnd.microsoft.card.adaptive",
+        >>>             "content": {
+        >>>                 "type": "AdaptiveCard",
+        >>>                 "body": [
+        >>>                     {"type": "TextBlock", "text": "Error details", "weight": "Bolder"},
+        >>>                     {"type": "TextBlock", "text": "An unexpected error occurred.", "wrap": True}
+        >>>                 ],
+        >>>                 "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        >>>                 "version": "1.4"
+        >>>             }
+        >>>         }
+        >>>     ]
+        >>> }
+        >>> send_error_to_teams(error_payload, "https://your-webhook-url.com")
+
+    Raises:
+        None: This function does not raise exceptions directly. It logs errors for unsuccessful HTTP requests.
     """
     logger = getlogger('handle_exceptions')
-    message = {
-        "text": f"{error_message}"
-    }
     headers = {
         "Content-Type": "application/json"
     }
-    response = requests.post(webhook_url, data=json.dumps(message), headers=headers)
+    response = requests.post(webhook_url, json=error_message, headers=headers)
     if response.status_code != 200:
         logger.error(f"Failed to send message to Teams: {response.status_code}, {response.text}")
         
+
 # Context manager for handling exceptions and sending them to Teams
 @contextmanager
 def handle_exceptions(process:str, notebook_url: str, webhook_url:str) -> Any:
     """
-    Context manager for handling exceptions and sending them to Microsoft Teams.
+    Context manager for handling exceptions and notifying Microsoft Teams.
+
+    This context manager wraps a block of code and captures any exceptions raised during its execution. 
+    If an exception occurs, it logs the error details and sends a formatted error message to a Microsoft Teams 
+    channel using the specified webhook. The error message includes the process name, error details, 
+    and a link to the relevant Databricks notebook.
 
     Args:
-        process (str): The process that is being executed.
-        notebook_url (str): The URL of the notebook where the process is running.
-        webhook_url (str): The webhook URL for Microsoft Teams.
+        process (str): The name of the process being executed. This is included in the error message for context.
+        notebook_url (str): The URL of the Databricks notebook where the process is running. This URL is included 
+                            in the error message as an actionable link.
+        webhook_url (str): The webhook URL for the Microsoft Teams channel to receive the error notification.
 
     Example:
-        >>> with handle_exceptions('Process Name', 'https://notebook_url.com', 'https://webhook_url.com'):
-        >>>     # Your code here
+        Use the context manager as follows:
+        
+        >>> with handle_exceptions('Data Processing Job', 'https://databricks.com/job/123', 'https://your-webhook-url.com'):
+        >>>     # Code block that may raise exceptions
+        >>>     process_data()
+
+    How it works:
+        - Captures any exception raised within the `with` block.
+        - Logs the error details including the exception type, message, and traceback.
+        - Sends a notification to Microsoft Teams using an Adaptive Card.
+        - Re-raises the exception to allow further handling or stop execution.
+
+    Notes:
+        - The error message sent to Teams is truncated to 450 characters to ensure compatibility with Teams' rendering.
+        - Ensure that the `send_error_to_teams` function is properly configured to send the payload to Teams.
+
+    Raises:
+        Any exception raised within the `with` block is re-raised after being logged and sent to Teams.
     """
     logger = getlogger('handle_exceptions')
     try:
@@ -145,5 +190,52 @@ def handle_exceptions(process:str, notebook_url: str, webhook_url:str) -> Any:
     except Exception as e:
         error_message = f"Exception: {type(e).__name__}, {str(e)}\nTraceback: {traceback.format_exc()}"
         logger.error(f"Error occurred: {error_message}")
-        send_error_to_teams(f'[ERROR] - Process {process} - Notebook: {notebook_url} - ERROR -> An error occurred: {error_message}', webhook_url)
+        
+        truncated_error_message = (
+            error_message[:450] + "[...]" if len(error_message) > 450 else error_message
+        )
+        error_message_json = {
+            "type": "message",
+            "attachments": [
+                {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                    {
+                        "type": "TextBlock",
+                        "text": "🚨 *Error in Databricks!*",
+                        "weight": "Bolder",
+                        "size": "Medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Error details:",
+                        "weight": "Bolder"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": f"**Process**: {process}\n**Error**: {truncated_error_message}",
+                        "wrap": True
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Check the log for more details.",
+                        "wrap": True
+                    }
+                    ],
+                    "actions": [
+                    {
+                        "type": "Action.OpenUrl",
+                        "title": "Open Job in Databricks",
+                        "url": notebook_url
+                    }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "version": "1.4"
+                }
+                }
+            ]
+            }
+        send_error_to_teams(error_message_json, webhook_url)
         raise  # Re-raise the exception to stop execution

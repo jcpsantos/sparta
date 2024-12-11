@@ -9,7 +9,7 @@
 project = 'Sparta'
 copyright = '2024, Juan Caio'
 author = 'Juan Caio'
-release = '0.5.4'
+release = '0.5.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
