@@ -6,6 +6,8 @@ import json
 import traceback
 from typing import Any, Dict
 from contextlib import contextmanager
+from requests.exceptions import ConnectionError
+import time
 
 def getlogger(name:str, level:logging=logging.INFO) -> logging:
     """Function that generates custom logs.
@@ -239,3 +241,36 @@ def handle_exceptions(process:str, notebook_url: str, webhook_url:str) -> Any:
             }
         send_error_to_teams(error_message_json, webhook_url)
         raise  # Re-raise the exception to stop execution
+    
+# Function to handle retries
+def retry_request(func, retries=3, delay=5):
+    """
+    Attempts to execute a function multiple times in case of failure.
+
+    This function tries to call the provided function (`func`) up to a maximum 
+    number of attempts specified by `retries`. If a connection error 
+    (ConnectionError) occurs, it will wait for a defined time specified by `delay` before trying again. 
+
+    Parameters:
+        func (callable): The function that will be called and may raise a ConnectionError.
+        retries (int): The maximum number of attempts to call the function. Default is 3.
+        delay (int): The time in seconds to wait between attempts. Default is 5.
+
+    Returns:
+        The result of the successful execution of the `func`.
+
+    Raises:
+        ConnectionError: If all attempts fail.
+    
+    Example:
+        >>> retry_request(my_function)
+        
+    """
+    for i in range(retries):
+        try:
+            return func()
+        except ConnectionError as e:
+            if i < retries - 1:
+                time.sleep(delay)
+            else:
+                raise e
