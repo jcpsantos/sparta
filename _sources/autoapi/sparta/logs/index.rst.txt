@@ -13,6 +13,7 @@ Functions
    sparta.logs.spark_property_calculator
    sparta.logs.send_error_to_teams
    sparta.logs.handle_exceptions
+   sparta.logs.retry_request
 
 
 Module Contents
@@ -161,5 +162,29 @@ Module Contents
    - Ensure that the `send_error_to_teams` function is properly configured to send the payload to Teams.
 
    :raises Any exception raised within the `with` block is re-raised after being logged and sent to Teams.:
+
+
+.. py:function:: retry_request(func, retries=3, delay=5)
+
+   Attempts to execute a function multiple times in case of failure.
+
+   This function tries to call the provided function (`func`) up to a maximum
+   number of attempts specified by `retries`. If a connection error
+   (ConnectionError) occurs, it will wait for a defined time specified by `delay` before trying again.
+
+   :param func: The function that will be called and may raise a ConnectionError.
+   :type func: callable
+   :param retries: The maximum number of attempts to call the function. Default is 3.
+   :type retries: int
+   :param delay: The time in seconds to wait between attempts. Default is 5.
+   :type delay: int
+
+   :returns: The result of the successful execution of the `func`.
+
+   :raises ConnectionError: If all attempts fail.
+
+   .. rubric:: Example
+
+   >>> retry_request(my_function)
 
 

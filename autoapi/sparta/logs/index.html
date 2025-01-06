@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>sparta.logs &#8212; Sparta 0.5.5 documentation</title>
+    <title>sparta.logs &#8212; Sparta 0.5.6 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=45def3bc"></script>
+    <script src="../../../_static/documentation_options.js?v=722679d6"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/sparta/logs/index';</script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Sparta 0.5.5 documentation</p>
+    <p class="title logo__title">Sparta 0.5.6 documentation</p>
   
 </a></div>
     
@@ -349,6 +349,9 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#sparta.logs.handle_exceptions" title="sparta.logs.handle_exceptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_exceptions</span></code></a>(→ Any)</p></td>
 <td><p>Context manager for handling exceptions and notifying Microsoft Teams.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sparta.logs.retry_request" title="sparta.logs.retry_request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retry_request</span></code></a>(func[, retries, delay])</p></td>
+<td><p>Attempts to execute a function multiple times in case of failure.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -525,6 +528,34 @@ in the error message as an actionable link.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="sparta.logs.retry_request">
+<span class="sig-prename descclassname"><span class="pre">sparta.logs.</span></span><span class="sig-name descname"><span class="pre">retry_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sparta.logs.retry_request" title="Link to this definition">#</a></dt>
+<dd><p>Attempts to execute a function multiple times in case of failure.</p>
+<p>This function tries to call the provided function (<cite>func</cite>) up to a maximum
+number of attempts specified by <cite>retries</cite>. If a connection error
+(ConnectionError) occurs, it will wait for a defined time specified by <cite>delay</cite> before trying again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – The function that will be called and may raise a ConnectionError.</p></li>
+<li><p><strong>retries</strong> (<em>int</em>) – The maximum number of attempts to call the function. Default is 3.</p></li>
+<li><p><strong>delay</strong> (<em>int</em>) – The time in seconds to wait between attempts. Default is 5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the successful execution of the <cite>func</cite>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ConnectionError</strong> – If all attempts fail.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">retry_request</span><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 </section>
 
@@ -580,6 +611,7 @@ in the error message as an actionable link.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.spark_property_calculator"><code class="docutils literal notranslate"><span class="pre">spark_property_calculator()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.send_error_to_teams"><code class="docutils literal notranslate"><span class="pre">send_error_to_teams()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.handle_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_exceptions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparta.logs.retry_request"><code class="docutils literal notranslate"><span class="pre">retry_request()</span></code></a></li>
 </ul>
 </li>
 </ul>
